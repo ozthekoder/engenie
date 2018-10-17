@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.12/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.12/Modules/CMakeParseArguments.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/WriteBasicConfigVersionFile.cmake
+C:/gitlab/engenie/vendor/glm/./cmake/glm.pc.in
+C:/gitlab/engenie/vendor/glm/CMakeLists.txt
+C:/gitlab/engenie/vendor/glm/cmake/CMakePackageConfigHelpers.cmake
+C:/gitlab/engenie/vendor/glm/cmake/GNUInstallDirs.cmake
+C:/gitlab/engenie/vendor/glm/cmake/glmBuildConfig.cmake.in
+C:/gitlab/engenie/vendor/glm/cmake/glmConfig.cmake.in
+C:/gitlab/engenie/vendor/glm/cmake_uninstall.cmake.in

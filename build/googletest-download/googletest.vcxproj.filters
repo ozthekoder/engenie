@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\5c19b1d0e8bc9048f380347c5c785ac3\googletest-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\ca42b0c9e3fd19c67773cf095da4362d\googletest-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\c59df3a837035a13e3beecaa93865792\googletest.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\build\googletest-download\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\gitlab\engenie\build\googletest-download\CMakeFiles\googletest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{63DE6B78-9E35-3F60-897B-1D0920118776}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

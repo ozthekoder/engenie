@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\gitlab\engenie\build\CMakeFiles\98ece814d60e938fcf9554985c3c3895\Continuous.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\gitlab\engenie\vendor\json\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\gitlab\engenie\build\vendor\json\CMakeFiles\Continuous" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6AC39601-845F-372D-AF07-78244097B5BE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

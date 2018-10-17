@@ -1,0 +1,17 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.12/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.12/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/CheckIncludeFile.c.in
+C:/Program Files/CMake/share/cmake-3.12/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/CheckSymbolExists.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/FindPythonInterp.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/FindThreads.cmake
+C:/Program Files/CMake/share/cmake-3.12/Modules/WriteBasicConfigVersionFile.cmake
+C:/gitlab/engenie/build/googletest-src/googletest/CMakeLists.txt
+C:/gitlab/engenie/build/googletest-src/googletest/cmake/Config.cmake.in
+C:/gitlab/engenie/build/googletest-src/googletest/cmake/gtest.pc.in
+C:/gitlab/engenie/build/googletest-src/googletest/cmake/gtest_main.pc.in
+C:/gitlab/engenie/build/googletest-src/googletest/cmake/internal_utils.cmake

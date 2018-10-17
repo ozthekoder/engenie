@@ -1,0 +1,36 @@
+# CMake generated Testfile for 
+# Source directory: C:/gitlab/engenie/vendor/json/test/cmake_import
+# Build directory: C:/gitlab/engenie/build/vendor/json/test/cmake_import
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+if("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+  add_test(cmake_import_configure "C:/Program Files/CMake/bin/cmake.exe" "-G" "Visual Studio 15 2017" "-Dnlohmann_json_DIR=C:/gitlab/engenie/build/vendor/json" "C:/gitlab/engenie/vendor/json/test/cmake_import/project")
+  set_tests_properties(cmake_import_configure PROPERTIES  FIXTURES_SETUP "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+  add_test(cmake_import_configure "C:/Program Files/CMake/bin/cmake.exe" "-G" "Visual Studio 15 2017" "-Dnlohmann_json_DIR=C:/gitlab/engenie/build/vendor/json" "C:/gitlab/engenie/vendor/json/test/cmake_import/project")
+  set_tests_properties(cmake_import_configure PROPERTIES  FIXTURES_SETUP "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
+  add_test(cmake_import_configure "C:/Program Files/CMake/bin/cmake.exe" "-G" "Visual Studio 15 2017" "-Dnlohmann_json_DIR=C:/gitlab/engenie/build/vendor/json" "C:/gitlab/engenie/vendor/json/test/cmake_import/project")
+  set_tests_properties(cmake_import_configure PROPERTIES  FIXTURES_SETUP "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
+  add_test(cmake_import_configure "C:/Program Files/CMake/bin/cmake.exe" "-G" "Visual Studio 15 2017" "-Dnlohmann_json_DIR=C:/gitlab/engenie/build/vendor/json" "C:/gitlab/engenie/vendor/json/test/cmake_import/project")
+  set_tests_properties(cmake_import_configure PROPERTIES  FIXTURES_SETUP "cmake_import")
+else()
+  add_test(cmake_import_configure NOT_AVAILABLE)
+endif()
+if("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+  add_test(cmake_import_build "C:/Program Files/CMake/bin/cmake.exe" "--build" ".")
+  set_tests_properties(cmake_import_build PROPERTIES  FIXTURES_REQUIRED "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+  add_test(cmake_import_build "C:/Program Files/CMake/bin/cmake.exe" "--build" ".")
+  set_tests_properties(cmake_import_build PROPERTIES  FIXTURES_REQUIRED "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
+  add_test(cmake_import_build "C:/Program Files/CMake/bin/cmake.exe" "--build" ".")
+  set_tests_properties(cmake_import_build PROPERTIES  FIXTURES_REQUIRED "cmake_import")
+elseif("${CTEST_CONFIGURATION_TYPE}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
+  add_test(cmake_import_build "C:/Program Files/CMake/bin/cmake.exe" "--build" ".")
+  set_tests_properties(cmake_import_build PROPERTIES  FIXTURES_REQUIRED "cmake_import")
+else()
+  add_test(cmake_import_build NOT_AVAILABLE)
+endif()

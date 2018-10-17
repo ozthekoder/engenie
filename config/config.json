@@ -1,0 +1,167 @@
+{
+  "name": "Engenie v0.0",
+  "OpenGL": {
+    "version": {
+      "major": 4,
+      "minor": 0
+    }
+  },
+  "window": {
+    "fullscreen": false,
+    "title": "Engenie v0.0",
+    "width": 1600,
+    "height": 1200
+  },
+  "scenes": [
+    {
+      "name": "first",
+      "viewport": {
+        "near": 0.1,
+        "far": 100.0,
+        "fov": 45.0,
+        "projection": 0
+      },
+      "camera": 0,
+      "start": true,
+      "map": {
+        "lights": {
+          "directional": {
+            "ambient": [0.05, 0.05, 0.05],
+            "direction": [-0.2, -1.0, -0.3],
+            "diffuse": [0.4, 0.4, 0.4],
+            "specular": [0.5, 0.5, 0.5]
+          },
+          "point": [
+            {
+              "ambient": [0.05, 0.05, 0.05],
+              "diffuse": [0.8, 0.8, 0.8],
+              "specular": [1.0, 1.0, 1.0],
+              "position": [0.7, 0.2, 2.0],
+              "constant": 1.0,
+              "linear": 0.09,
+              "quadratic": 0.032
+            },
+            {
+              "ambient": [0.05, 0.05, 0.05],
+              "diffuse": [0.8, 0.8, 0.8],
+              "specular": [1.0, 1.0, 1.0],
+              "position": [2.3, -3.3, -4.0],
+              "constant": 1.0,
+              "linear": 0.09,
+              "quadratic": 0.032
+            },
+            {
+              "ambient": [0.05, 0.05, 0.05],
+              "diffuse": [0.8, 0.8, 0.8],
+              "specular": [1.0, 1.0, 1.0],
+              "position": [-4.0, 2.0, -12.0],
+              "constant": 1.0,
+              "linear": 0.09,
+              "quadratic": 0.032
+            },
+            {
+              "ambient": [0.05, 0.05, 0.05],
+              "diffuse": [0.8, 0.8, 0.8],
+              "specular": [1.0, 1.0, 1.0],
+              "position": [0.0, 0.0, -3.0],
+              "constant": 1.0,
+              "linear": 0.09,
+              "quadratic": 0.032
+            }
+          ],
+          "spot": []
+        },
+        "objects": [
+          {
+            "type": "woodenbox",
+            "position": [0.0, 0.0, 0.0],
+            "velocity": 0.0,
+            "visible": true,
+            "movable": true
+          },
+          {
+            "type": "woodenbox",
+            "position": [1.0, 0.0, 0.0],
+            "velocity": 0.0,
+            "visible": true,
+            "movable": true
+          },
+          {
+            "type": "woodenbox",
+            "position": [2.0, 0.0, 0.0],
+            "velocity": 0.0,
+            "visible": true,
+            "movable": true
+          },
+          {
+            "type": "nanosuit",
+            "position": [0.0, 0.0, 5.0],
+            "velocity": 0.0,
+            "visible": true,
+            "movable": true
+          }
+        ],
+        "text": [
+          {
+            "font": "yellowjacket_shadow",
+            "position": [100.0, 100.0, 0.0],
+            "color": [1.0, 0.0, 0.4],
+            "text": "Ozzy Rulez Bitch"
+          }
+        ]
+      },
+      "assets": {
+        "textures": [],
+        "models": {
+          "woodenbox": "/assets/models/woodenbox/woodenbox.obj",
+          "sphere": "/assets/models/sphere/sphere.obj",
+          "nanosuit": "/assets/models/nanosuit/nanosuit.obj"
+        },
+        "fonts": {
+          "yellowjacket_shadow": "/assets/fonts/6809_chargen.otf"
+        },
+        "shaders": {
+          "models": [
+            "/assets/shaders/multiple_lights.vert",
+            "/assets/shaders/multiple_lights.frag"
+          ],
+          "lights": ["/assets/shaders/lamp.vert", "/assets/shaders/lamp.frag"],
+          "text": ["/assets/shaders/text.vert", "/assets/shaders/text.frag"]
+        }
+      }
+    },
+    {
+      "name": "second",
+      "viewport": {
+        "near": 0.1,
+        "far": 100.0,
+        "fov": 45.0,
+        "projection": 1
+      },
+      "camera": 0,
+      "start": false,
+      "map": {
+        "lights": {},
+        "objects": [],
+        "text": [
+          {
+            "font": "yellowjacket_shadow",
+            "position": [100.0, 100.0, 0.0],
+            "color": [1.0, 0.0, 0.4],
+            "text": "Ozzy Rulez Bitch"
+          }
+        ]
+      },
+      "assets": {
+        "textures": [],
+        "models": {},
+        "fonts": {
+          "yellowjacket_shadow": "/assets/fonts/SourceSansPro-Regular.otf"
+        },
+        "shaders": {
+          "text": ["/assets/shaders/text.vert", "assets/shaders/text.frag"]
+        }
+      }
+    }
+  ]
+}
