@@ -1,3 +1,0 @@
-C:/gitlab/engenie/build/googletest-download/CMakeFiles/googletest.dir
-C:/gitlab/engenie/build/googletest-download/CMakeFiles/ALL_BUILD.dir
-C:/gitlab/engenie/build/googletest-download/CMakeFiles/ZERO_CHECK.dir

@@ -3,9 +3,9 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <glad/glad.h>
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -17,31 +17,7 @@ using Json = nlohmann::json;
 
 int main(int argc, char *argv[])
 {
-    tinygltf::Model model;
-    tinygltf::TinyGLTF loader;
-    std::string err;
-    std::string warn;
-
     gladLoadGL();
-    //    bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, argv[1]);
-    bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "C:\\gitlab\\engenie\\assets\\models\\nanosuit/nanosuit.gltf"); // for binary glTF(.glb)
-
-    if (!warn.empty())
-    {
-        printf("Warn: %s\n", warn.c_str());
-    }
-
-    if (!err.empty())
-    {
-        printf("Err: %s\n", err.c_str());
-    }
-
-    if (!ret)
-    {
-        printf("Failed to parse glTF\n");
-        return -1;
-    }
-
     sf::Window window(sf::VideoMode(800, 600), "Engenie v0.0");
 
     // run the program as long as the window is open
