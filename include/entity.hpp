@@ -2,7 +2,7 @@
 #define ENTITY_H
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "shader.hpp"
 #include <nlohmann/json.hpp>
 
 using Json = nlohmann::json;
@@ -11,11 +11,11 @@ namespace Engenie
 {
 class Entity
 {
-  public:
-    Entity() {}
-    Entity(Json data) {}
+public:
+  Entity() {}
+  Entity(Json data) {}
 
-    virtual void draw(sf::Shader const &shader) = 0;
+  virtual void draw(Shader const &shader) = 0;
 };
 }; // namespace Engenie
 

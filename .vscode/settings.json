@@ -3,7 +3,8 @@
     "cmake.configureOnOpen": true,
     "C_Cpp.configurationWarnings": "Disabled",
     "files.associations": {
-        "stack": "cpp"
+        "stack": "cpp",
+        "iostream": "cpp"
     },
     "editor.tokenColorCustomizations": {
         "textMateRules": [
@@ -26,5 +27,7 @@
                 }
             }
         ]
-    }
+    },
+    "gtest-adapter.debugConfig": "(Windows) Launch",
+    "gtest-adapter.supportLocation": true
 }

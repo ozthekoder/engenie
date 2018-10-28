@@ -9,7 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <SFML/OpenGL.hpp>
+#include <glad/glad.h>
 #include <SFML/Window.hpp>
 
 namespace Engenie
@@ -37,6 +37,7 @@ public:
 
   void init(sf::Window *window);
   glm::mat4 getProjectionMatrix();
+  void setSize(int w, int h);
 
 private:
   GLfloat fov, nearZ, farZ;

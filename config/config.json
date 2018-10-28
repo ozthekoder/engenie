@@ -73,53 +73,35 @@
         },
         "objects": [
           {
-            "type": "woodenbox",
+            "type": "water_bottle",
             "position": [0.0, 0.0, 0.0],
             "velocity": 0.0,
             "visible": true,
             "movable": true
           },
           {
-            "type": "woodenbox",
+            "type": "water_bottle",
             "position": [1.0, 0.0, 0.0],
             "velocity": 0.0,
             "visible": true,
             "movable": true
           },
           {
-            "type": "woodenbox",
+            "type": "water_bottle",
             "position": [2.0, 0.0, 0.0],
-            "velocity": 0.0,
-            "visible": true,
-            "movable": true
-          },
-          {
-            "type": "nanosuit",
-            "position": [0.0, 0.0, 5.0],
             "velocity": 0.0,
             "visible": true,
             "movable": true
           }
         ],
-        "text": [
-          {
-            "font": "yellowjacket_shadow",
-            "position": [100.0, 100.0, 0.0],
-            "color": [1.0, 0.0, 0.4],
-            "text": "Ozzy Rulez Bitch"
-          }
-        ]
+        "text": []
       },
       "assets": {
         "textures": [],
         "models": {
-          "woodenbox": "/assets/models/woodenbox/woodenbox.obj",
-          "sphere": "/assets/models/sphere/sphere.obj",
-          "nanosuit": "/assets/models/nanosuit/nanosuit.obj"
+          "water_bottle": "/assets/models/water_bottle/WaterBottle.gltf"
         },
-        "fonts": {
-          "yellowjacket_shadow": "/assets/fonts/6809_chargen.otf"
-        },
+        "fonts": {},
         "shaders": {
           "models": [
             "/assets/shaders/multiple_lights.vert",

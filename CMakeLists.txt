@@ -34,28 +34,29 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
   include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-else()
+if(NOT MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -std=c++11")
     if(NOT WIN32)
         set(GLAD_LIBRARIES dl)
     endif()
 endif()
-
-include_directories(include/ vendor/glad/include)
+file(GLOB PROJECT_SOURCES src/*.cpp)
+include_directories(include vendor/glad/include)
 add_subdirectory(vendor/sfml)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/json)
 
-add_definitions(-DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
+add_definitions(-DGLFW_INCLUDE_NONE
+                -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
 find_package(SFML COMPONENTS system window graphics network audio main REQUIRED)
 
 #add_library(glad vendor/glad/src/glad.c)
 #target_include_directories(glad PRIVATE vendor/glad/include)
 
-add_executable(Engenie src/main.cpp vendor/glad/src/glad.c)
+add_executable(Engenie ${PROJECT_SOURCES} vendor/glad/src/glad.c)
+#add_executable(test test/main.cpp)
 
 target_link_libraries(Engenie ${GLAD_LIBRARIES} gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio sfml-main)
 
-add_test(NAME example_test COMMAND example)
+#target_link_libraries(test gtest gmock_main)
+#add_test(NAME example_test COMMAND test)

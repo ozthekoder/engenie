@@ -64,6 +64,7 @@ void Camera::setUpVector(glm::vec3 upVec)
 
 glm::mat4 Camera::generateViewMatrix()
 {
+    return glm::mat4(1.0f);
 }
 
 void Camera::calculateLinearDisplacement(float dt)

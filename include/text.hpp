@@ -12,11 +12,11 @@ namespace Engenie
 {
 class Text : public Entity
 {
-  public:
-    Text() : Entity() {}
-    Text(Json data) : Entity(data) {}
+public:
+  Text() : Entity() {}
+  Text(Json data) : Entity(data) {}
 
-    void draw(sf::Shader const &shader) {}
+  void draw(Shader const &shader) {}
 };
 }; // namespace Engenie
 

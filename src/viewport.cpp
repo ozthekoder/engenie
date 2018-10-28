@@ -23,4 +23,10 @@ glm::mat4 Viewport::getProjectionMatrix()
         break;
     }
 }
+void Viewport::setSize(int w, int h)
+{
+    width = w;
+    height = h;
+    glViewport(0, 0, width, height);
+}
 }; // namespace Engenie

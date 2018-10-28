@@ -4,16 +4,9 @@
 namespace Engenie
 {
 
-Shader *Shader::init()
+void Shader::activate()
 {
-    mProgram = glCreateProgram();
-    return this;
-}
-
-Shader *Shader::activate()
-{
-    glUseProgram(mProgram);
-    return this;
+    glUseProgram(program);
 }
 
 void Shader::bind(GLuint location, GLuint value) { glUniform1i(location, value); }
@@ -22,25 +15,24 @@ void Shader::bind(GLuint location, glm::mat4 const &matrix) { glUniformMatrix4fv
 void Shader::bind(GLuint location, glm::vec4 const &vector) { glUniform4f(location, vector.x, vector.y, vector.z, vector.w); }
 void Shader::bind(GLuint location, glm::vec3 const &vector) { glUniform3f(location, vector.x, vector.y, vector.z); }
 
-Shader *Shader::attach(unsigned int shader, const char *source)
+void Shader::attach(unsigned int shader, const char *source)
 {
     glShaderSource(shader, 1, &source, nullptr);
     glCompileShader(shader);
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &mStatus);
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 
     // Display the Build Log on Error
-    if (mStatus == false)
+    if (status == false)
     {
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &mLength);
-        std::unique_ptr<char[]> buffer(new char[mLength]);
-        glGetShaderInfoLog(shader, mLength, nullptr, buffer.get());
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &strLength);
+        std::unique_ptr<char[]> buffer(new char[strLength]);
+        glGetShaderInfoLog(shader, strLength, nullptr, buffer.get());
         fprintf(stderr, "%s", buffer.get());
     }
 
     // Attach the Shader and Free Allocated Memory
-    glAttachShader(mProgram, shader);
+    glAttachShader(program, shader);
     glDeleteShader(shader);
-    return this;
 }
 
 std::string Shader::loadFile(const std::string &filename)
@@ -69,28 +61,26 @@ GLuint Shader::create(std::string const &filename)
         return false;
 }
 
-Shader *Shader::link()
+void Shader::link()
 {
-    glLinkProgram(mProgram);
-    glGetProgramiv(mProgram, GL_LINK_STATUS, &mStatus);
-    if (mStatus == false)
+    glLinkProgram(program);
+    glGetProgramiv(program, GL_LINK_STATUS, &status);
+    if (status == false)
     {
-        glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &mLength);
-        std::unique_ptr<char[]> buffer(new char[mLength]);
-        glGetProgramInfoLog(mProgram, mLength, nullptr, buffer.get());
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &strLength);
+        std::unique_ptr<char[]> buffer(new char[strLength]);
+        glGetProgramInfoLog(program, strLength, nullptr, buffer.get());
         fprintf(stderr, "%s", buffer.get());
     }
-    assert(mStatus == true);
-    return this;
+    assert(status == true);
 }
 
-Shader *Shader::addDirective(std::string const &varName, unsigned int value, std::string &src)
+void Shader::addDirective(std::string const &varName, unsigned int value, std::string &src)
 {
     std::size_t found = src.find("\n");
 
     std::string addition = "\n#define " + varName + " " + std::to_string(value) + "\n\n";
     src.insert(found, addition);
-    return this;
 }
 
 } // namespace Engenie

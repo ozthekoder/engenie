@@ -1,13 +1,14 @@
 #ifndef MODEL_H
 #define MODEL_H
 #pragma once
-#define TINYGLTF_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-
-#include "tiny_gltf.h"
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <iostream>
+#include "stb_image.h"
 #include "asset.hpp"
+#include <nlohmann/json.hpp>
+using Json = nlohmann::json;
 
 namespace Engenie
 {
@@ -20,30 +21,9 @@ class Model : public Asset
         loadFromFile(filePath);
     }
 
-    void loadFromFile(std::string const &filePath)
-    {
-        std::string err;
-        std::string warn;
-        tinygltf::TinyGLTF loader;
-        bool ret = loader.LoadASCIIFromFile(model, &err, &warn, filePath); // for binary glTF(.glb)
-        if (!warn.empty())
-        {
-            std::cout << "Model Loading Warning: " << warn << std::endl;
-        }
-
-        if (!err.empty())
-        {
-            std::cout << "Model Loading Error: " << err << std::endl;
-        }
-
-        if (!ret)
-        {
-            printf("Failed to parse glTF\n");
-        }
-    }
+    void loadFromFile(std::string const &filePath);
 
   private:
-    tinygltf::Model *model;
 };
 }; // namespace Engenie
 

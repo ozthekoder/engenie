@@ -40,8 +40,8 @@ void Scene::loadShaders(Json shaders)
 {
     for (Json::iterator it = shaders.begin(); it != shaders.end(); ++it)
     {
-        std::string path = it.value();
-        assets.insert_or_assign(it.key(), new Shaders(PROJECT_SOURCE_DIR + path));
+        Json files = it.value();
+        assets.insert_or_assign(it.key(), new Shader(files));
     }
 }
 
