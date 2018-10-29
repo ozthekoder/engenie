@@ -4,7 +4,8 @@
     "C_Cpp.configurationWarnings": "Disabled",
     "files.associations": {
         "stack": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "xstring": "cpp"
     },
     "editor.tokenColorCustomizations": {
         "textMateRules": [

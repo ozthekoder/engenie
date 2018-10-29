@@ -99,7 +99,7 @@
       "assets": {
         "textures": [],
         "models": {
-          "water_bottle": "/assets/models/water_bottle/WaterBottle.gltf"
+          "water_bottle": "/assets/models/WaterBottle/glTF-pbrSpecularGlossiness/WaterBottle.gltf"
         },
         "fonts": {},
         "shaders": {
