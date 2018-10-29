@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 3.1)
-
-project(Engenie)
+cmake_minimum_required(VERSION 3.5)
+project(Engenie VERSION 1.0.0 LANGUAGES C CXX)
 
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -35,28 +34,28 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -std=c++11")
     if(NOT WIN32)
         set(GLAD_LIBRARIES dl)
+        set(SFML_DIR "~/sfml")
     endif()
 endif()
+
 file(GLOB PROJECT_SOURCES src/*.cpp)
 include_directories(include vendor/glad/include)
-add_subdirectory(vendor/sfml)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/json)
-
-add_definitions(-DGLFW_INCLUDE_NONE
-                -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
-find_package(SFML COMPONENTS system window graphics network audio main REQUIRED)
+add_subdirectory(vendor/sfml)
+add_definitions(-DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
+find_package(SFML 2.5 COMPONENTS graphics audio system window network REQUIRED)
 
 #add_library(glad vendor/glad/src/glad.c)
 #target_include_directories(glad PRIVATE vendor/glad/include)
 
-add_executable(Engenie ${PROJECT_SOURCES} vendor/glad/src/glad.c)
-#add_executable(test test/main.cpp)
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} vendor/glad/src/glad.c)
 
-target_link_libraries(Engenie ${GLAD_LIBRARIES} gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio sfml-main)
+#add_executable(test test/main.cpp)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+target_link_libraries(Engenie ${GLAD_LIBRARIES} gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 
 #target_link_libraries(test gtest gmock_main)
 #add_test(NAME example_test COMMAND test)
