@@ -7,6 +7,7 @@ Engine &Engine::loadConfig(std::string const &path)
     std::ifstream fileStream(path);
     auto src = std::string(std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>());
     Json config = Json::parse(src);
+    fileStream.close();
 
     for (Json::iterator it = config["scenes"].begin(); it != config["scenes"].end(); ++it)
     {

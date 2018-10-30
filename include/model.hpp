@@ -29,6 +29,7 @@ struct Buffer
   std::string name;
   std::vector<unsigned char> data;
   std::string uri;
+  size_t byteLength;
   Json extras;
 
   bool operator==(const Buffer &) const;

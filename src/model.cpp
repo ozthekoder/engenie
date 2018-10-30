@@ -8,11 +8,44 @@ void Model::loadFromFile(std::string const &filePath)
     std::ifstream fileStream(filePath);
     auto src = std::string(std::istreambuf_iterator<char>(fileStream), std::istreambuf_iterator<char>());
     gltf = Json::parse(src);
+    loadBuffers();
     loadImages();
 }
 
 void Model::loadBuffers()
 {
+    Json bffrs = gltf["buffers"];
+    for (auto it = bffrs.begin(); it != bffrs.end(); ++it)
+    {
+        Json bfr = it.value();
+        Buffer buffer;
+        std::string uri = bfr["uri"];
+        if (isDataURI(uri))
+        {
+            decodeDataURI(buffer.data, std::string(""), uri, 0);
+        }
+        buffer.byteLength = bfr["byteLength"];
+        std::string fullPath = directory + uri;
+        std::streampos size;
+        size_t sz;
+        char *memblock;
+
+        std::ifstream file(fullPath, std::ios::in | std::ios::binary | std::ios::ate);
+        if (file.is_open())
+        {
+            size = file.tellg();
+            sz = static_cast<size_t>(size);
+            memblock = new char[sz];
+            file.seekg(0, std::ios::beg);
+            file.read(memblock, size);
+            file.close();
+        }
+
+        unsigned char *data = (unsigned char *)memblock;
+        buffer.data.resize(sz);
+        std::copy(data, data + sz, buffer.data.begin());
+        buffers.push_back(buffer);
+    }
 }
 
 void Model::loadImages()
@@ -29,7 +62,9 @@ void Model::loadImages()
         }
         std::string fullPath = directory + uri;
         unsigned char *data = stbi_load(fullPath.c_str(), &image.width, &image.height, &image.component, STBI_rgb_alpha);
-        std::copy(data, data + image.width * image.height * image.component, image.data.begin());
+        size_t sz = image.width * image.height * image.component;
+        image.data.resize(sz);
+        std::copy(data, data + sz, image.data.begin());
         images.push_back(image);
     }
 }

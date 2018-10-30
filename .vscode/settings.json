@@ -5,7 +5,11 @@
     "files.associations": {
         "stack": "cpp",
         "iostream": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "istream": "cpp",
+        "xiosbase": "cpp",
+        "iosfwd": "cpp",
+        "xutility": "cpp"
     },
     "editor.tokenColorCustomizations": {
         "textMateRules": [
