@@ -9,7 +9,8 @@
         "istream": "cpp",
         "xiosbase": "cpp",
         "iosfwd": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "memory": "cpp"
     },
     "editor.tokenColorCustomizations": {
         "textMateRules": [

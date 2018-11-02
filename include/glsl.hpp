@@ -22,14 +22,28 @@ class GLSL : public Asset
   public:
     ShaderType type;
     std::string source;
+
     GLSL(ShaderType initType) : Asset()
     {
         type = initType;
     }
+
     GLSL(ShaderType initType, std::string src)
     {
         type = initType;
         source = src;
+    }
+
+    GLSL(std::string const &filePath) : Asset(filePath)
+    {
+        loadFromFile(FilePath);
+    }
+
+    void loadFromFile(std::string const &filePath)
+    {
+        std::ifstream fd(FilePath);
+        source = std::string(std::istreambuf_iterator<char>(fd),
+                             (std::istreambuf_iterator<char>()));
     }
 
     GLuint create();
