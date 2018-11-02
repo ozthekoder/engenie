@@ -17,8 +17,8 @@
       "name": "first",
       "viewport": {
         "near": 0.1,
-        "far": 100.0,
-        "fov": 45.0,
+        "far": 100,
+        "fov": 45,
         "projection": 0
       },
       "camera": 0,
@@ -27,7 +27,7 @@
         "lights": {
           "directional": {
             "ambient": [0.05, 0.05, 0.05],
-            "direction": [-0.2, -1.0, -0.3],
+            "direction": [-0.2, -1, -0.3],
             "diffuse": [0.4, 0.4, 0.4],
             "specular": [0.5, 0.5, 0.5]
           },
@@ -35,36 +35,36 @@
             {
               "ambient": [0.05, 0.05, 0.05],
               "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1.0, 1.0, 1.0],
-              "position": [0.7, 0.2, 2.0],
-              "constant": 1.0,
+              "specular": [1, 1, 1],
+              "position": [0.7, 0.2, 2],
+              "constant": 1,
               "linear": 0.09,
               "quadratic": 0.032
             },
             {
               "ambient": [0.05, 0.05, 0.05],
               "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1.0, 1.0, 1.0],
-              "position": [2.3, -3.3, -4.0],
-              "constant": 1.0,
+              "specular": [1, 1, 1],
+              "position": [2.3, -3.3, -4],
+              "constant": 1,
               "linear": 0.09,
               "quadratic": 0.032
             },
             {
               "ambient": [0.05, 0.05, 0.05],
               "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1.0, 1.0, 1.0],
-              "position": [-4.0, 2.0, -12.0],
-              "constant": 1.0,
+              "specular": [1, 1, 1],
+              "position": [-4, 2, -12],
+              "constant": 1,
               "linear": 0.09,
               "quadratic": 0.032
             },
             {
               "ambient": [0.05, 0.05, 0.05],
               "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1.0, 1.0, 1.0],
-              "position": [0.0, 0.0, -3.0],
-              "constant": 1.0,
+              "specular": [1, 1, 1],
+              "position": [0, 0, -3],
+              "constant": 1,
               "linear": 0.09,
               "quadratic": 0.032
             }
@@ -74,22 +74,22 @@
         "objects": [
           {
             "type": "water_bottle",
-            "position": [0.0, 0.0, 0.0],
-            "velocity": 0.0,
+            "position": [0, 0, 0],
+            "velocity": 0,
             "visible": true,
             "movable": true
           },
           {
             "type": "water_bottle",
-            "position": [1.0, 0.0, 0.0],
-            "velocity": 0.0,
+            "position": [1, 0, 0],
+            "velocity": 0,
             "visible": true,
             "movable": true
           },
           {
             "type": "water_bottle",
-            "position": [2.0, 0.0, 0.0],
-            "velocity": 0.0,
+            "position": [2, 0, 0],
+            "velocity": 0,
             "visible": true,
             "movable": true
           }
@@ -102,13 +102,19 @@
           "water_bottle": "/assets/models/WaterBottle/glTF-pbrSpecularGlossiness/WaterBottle.gltf"
         },
         "fonts": {},
-        "shaders": {
+        "glsl": {
           "models": [
-            "/assets/shaders/multiple_lights.vert",
-            "/assets/shaders/multiple_lights.frag"
+            "/assets/shaders/multiple_lights/vertex.glsl",
+            "/assets/shaders/multiple_lights/fragment.glsl"
           ],
-          "lights": ["/assets/shaders/lamp.vert", "/assets/shaders/lamp.frag"],
-          "text": ["/assets/shaders/text.vert", "/assets/shaders/text.frag"]
+          "lights": [
+            "/assets/shaders/lamp/vertex.glsl",
+            "/assets/shaders/lamp/fragment.glsl"
+          ],
+          "text": [
+            "/assets/shaders/text/vertex.glsl",
+            "/assets/shaders/text/fragment.glsl"
+          ]
         }
       }
     },
@@ -116,8 +122,8 @@
       "name": "second",
       "viewport": {
         "near": 0.1,
-        "far": 100.0,
-        "fov": 45.0,
+        "far": 100,
+        "fov": 45,
         "projection": 1
       },
       "camera": 0,
@@ -128,8 +134,8 @@
         "text": [
           {
             "font": "yellowjacket_shadow",
-            "position": [100.0, 100.0, 0.0],
-            "color": [1.0, 0.0, 0.4],
+            "position": [100, 100, 0],
+            "color": [1, 0, 0.4],
             "text": "Ozzy Rulez Bitch"
           }
         ]

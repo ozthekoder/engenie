@@ -11,11 +11,27 @@ void Scene::setupViewport(Json v)
         GLfloat(v["fov"]),
         v["projection"]);
 }
-void Scene::loadAssets(Json assets)
+void Scene::loadAssets(Json asts)
 {
-    loadModels(assets["models"]);
-    loadFonts(assets["fonts"]);
-    loadShaders(assets["shaders"]);
+    for (Json::iterator it = asts.begin(); it != asts.end(); ++it)
+    {
+        std::string assetType = it.key();
+        assets.insert_or_assign(assetType, std::unordered_map<std::string, Asset *>());
+
+        Json assetsOfType = it.value();
+        if (assetType == "models")
+        {
+            loadModels(assetsOfType);
+        }
+        else if (assetType == "fonts")
+        {
+            loadFonts(assetsOfType);
+        }
+        else
+        {
+            loadGLSL(assetsOfType);
+        }
+    }
 }
 
 void Scene::loadModels(Json models)
@@ -23,7 +39,7 @@ void Scene::loadModels(Json models)
     for (Json::iterator it = models.begin(); it != models.end(); ++it)
     {
         std::string path = it.value();
-        assets.insert_or_assign(it.key(), new Model(PROJECT_SOURCE_DIR + path));
+        assets["models"].insert_or_assign(it.key(), new Model(PROJECT_SOURCE_DIR + path));
     }
 }
 
@@ -32,16 +48,21 @@ void Scene::loadFonts(Json fonts)
     for (Json::iterator it = fonts.begin(); it != fonts.end(); ++it)
     {
         std::string path = it.value();
-        assets.insert_or_assign(it.key(), new Font(PROJECT_SOURCE_DIR + path));
+        assets["fonts"].insert_or_assign(it.key(), new Font(PROJECT_SOURCE_DIR + path));
     }
 }
 
-void Scene::loadShaders(Json shaders)
+void Scene::loadGLSL(Json glsl)
 {
-    for (Json::iterator it = shaders.begin(); it != shaders.end(); ++it)
+    for (Json::iterator it = glsl.begin(); it != glsl.end(); ++it)
     {
         Json files = it.value();
-        assets.insert_or_assign(it.key(), new Shader(files));
+        for (Json::iterator i = files.begin(); i != files.end(); ++i)
+        {
+            std::string path = i.value();
+
+            assets["glsl"].insert_or_assign(it.key(), new GLSL(path));
+        }
     }
 }
 
