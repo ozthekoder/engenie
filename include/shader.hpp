@@ -1,7 +1,6 @@
 #ifndef SHADER_H
 #define SHADER_H
 #pragma once
-
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -10,6 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
+
 #include "asset.hpp"
 
 using Json = nlohmann::json;
