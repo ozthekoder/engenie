@@ -1,0 +1,3142 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Objects</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre:not(.hljs), .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre:not(.hljs), .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre:not(.hljs), .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="objects">Objects</h1>
+<ul>
+<li><a href="#reference-accessor"><code>Accessor</code></a>
+<ul>
+<li><a href="#reference-accessor-sparse"><code>Sparse</code></a>
+<ul>
+<li><a href="#reference-accessor-sparse-indices"><code>Indices</code></a></li>
+<li><a href="#reference-accessor-sparse-values"><code>Values</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#reference-animation"><code>Animation</code></a>
+<ul>
+<li><a href="#reference-animation-channel"><code>Channel</code></a>
+<ul>
+<li><a href="#reference-animation-channel-target"><code>Target</code></a></li>
+</ul>
+</li>
+<li><a href="#reference-animation-sampler"><code>Sampler</code></a></li>
+</ul>
+</li>
+<li><a href="#reference-asset"><code>Asset</code></a></li>
+<li><a href="#reference-buffer"><code>Buffer</code></a></li>
+<li><a href="#reference-buffer-view"><code>Buffer View</code></a></li>
+<li><a href="#reference-camera"><code>Camera</code></a>
+<ul>
+<li><a href="#reference-camera-orthographic"><code>Orthographic</code></a></li>
+<li><a href="#reference-camera-perspective"><code>Perspective</code></a></li>
+</ul>
+</li>
+<li><a href="#reference-extension"><code>Extension</code></a></li>
+<li><a href="#reference-extras"><code>Extras</code></a></li>
+<li><a href="#reference-gltf"><code>glTF</code></a> (root object)</li>
+<li><a href="#reference-gltf-child-of-root-property"><code>glTF Child of Root Property</code></a></li>
+<li><a href="#reference-gltf-id"><code>glTF Id</code></a></li>
+<li><a href="#reference-gltf-property"><code>glTF Property</code></a></li>
+<li><a href="#reference-image"><code>Image</code></a></li>
+<li><a href="#reference-material"><code>Material</code></a>
+<ul>
+<li><a href="#reference-material-normal-texture-info"><code>Normal Texture Info</code></a></li>
+<li><a href="#reference-material-occlusion-texture-info"><code>Occlusion Texture Info</code></a></li>
+<li><a href="#reference-material-pbr-metallic-roughness"><code>PBR Metallic Roughness</code></a></li>
+</ul>
+</li>
+<li><a href="#reference-mesh"><code>Mesh</code></a>
+<ul>
+<li><a href="#reference-mesh-primitive"><code>Primitive</code></a></li>
+</ul>
+</li>
+<li><a href="#reference-node"><code>Node</code></a></li>
+<li><a href="#reference-sampler"><code>Sampler</code></a></li>
+<li><a href="#reference-scene"><code>Scene</code></a></li>
+<li><a href="#reference-skin"><code>Skin</code></a></li>
+<li><a href="#reference-texture"><code>Texture</code></a></li>
+<li><a href="#reference-texture-info"><code>Texture Info</code></a></li>
+</ul>
+<hr>
+<p><a name="reference-accessor"></a></p>
+<h2 id="accessor">Accessor</h2>
+<p>A typed view into a bufferView.  A bufferView contains raw binary data.  An accessor provides a typed view into a bufferView or a subset of a bufferView similar to how WebGL's <code>vertexAttribPointer()</code> defines an attribute in a buffer.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>bufferView</strong></td>
+<td><code>integer</code></td>
+<td>The index of the bufferView.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>byteOffset</strong></td>
+<td><code>integer</code></td>
+<td>The offset relative to the start of the bufferView in bytes.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>componentType</strong></td>
+<td><code>integer</code></td>
+<td>The datatype of components in the attribute.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>normalized</strong></td>
+<td><code>boolean</code></td>
+<td>Specifies whether integer data values should be normalized.</td>
+<td>No, default: <code>false</code></td>
+</tr>
+<tr>
+<td><strong>count</strong></td>
+<td><code>integer</code></td>
+<td>The number of attributes referenced by this accessor.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td><code>string</code></td>
+<td>Specifies if the attribute is a scalar, vector, or matrix.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>max</strong></td>
+<td><code>number</code> <code>[1-16]</code></td>
+<td>Maximum value of each component in this attribute.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>min</strong></td>
+<td><code>number</code> <code>[1-16]</code></td>
+<td>Minimum value of each component in this attribute.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>sparse</strong></td>
+<td><code>object</code></td>
+<td>Sparse storage of attributes that deviate from their initialization value.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="accessorbufferview">accessor.bufferView</h3>
+<p>The index of the bufferView. When not defined, accessor must be initialized with zeros; <code>sparse</code> property or extensions could override zeros with actual values.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="accessorbyteoffset">accessor.byteOffset</h3>
+<p>The offset relative to the start of the bufferView in bytes.  This must be a multiple of the size of the component datatype.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+<li><strong>Related WebGL functions</strong>: <code>vertexAttribPointer()</code> offset parameter</li>
+</ul>
+<h3 id="accessorcomponenttype-whitecheckmark">accessor.componentType :white_check_mark:</h3>
+<p>The datatype of components in the attribute.  All valid values correspond to WebGL enums.  The corresponding typed arrays are <code>Int8Array</code>, <code>Uint8Array</code>, <code>Int16Array</code>, <code>Uint16Array</code>, <code>Uint32Array</code>, and <code>Float32Array</code>, respectively.  5125 (UNSIGNED_INT) is only allowed when the accessor contains indices, i.e., the accessor is only referenced by <code>primitive.indices</code>.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>5120</code> BYTE</li>
+<li><code>5121</code> UNSIGNED_BYTE</li>
+<li><code>5122</code> SHORT</li>
+<li><code>5123</code> UNSIGNED_SHORT</li>
+<li><code>5125</code> UNSIGNED_INT</li>
+<li><code>5126</code> FLOAT</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>vertexAttribPointer()</code> type parameter</li>
+</ul>
+<h3 id="accessornormalized">accessor.normalized</h3>
+<p>Specifies whether integer data values should be normalized (<code>true</code>) to [0, 1] (for unsigned types) or [-1, 1] (for signed types), or converted directly (<code>false</code>) when they are accessed. This property is defined only for accessors that contain vertex attributes or animation output data.</p>
+<ul>
+<li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: No, default: <code>false</code></li>
+<li><strong>Related WebGL functions</strong>: <code>vertexAttribPointer()</code> normalized parameter</li>
+</ul>
+<h3 id="accessorcount-whitecheckmark">accessor.count :white_check_mark:</h3>
+<p>The number of attributes referenced by this accessor, not to be confused with the number of bytes or number of components.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 1</code></li>
+</ul>
+<h3 id="accessortype-whitecheckmark">accessor.type :white_check_mark:</h3>
+<p>Specifies if the attribute is a scalar, vector, or matrix.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;SCALAR&quot;</code></li>
+<li><code>&quot;VEC2&quot;</code></li>
+<li><code>&quot;VEC3&quot;</code></li>
+<li><code>&quot;VEC4&quot;</code></li>
+<li><code>&quot;MAT2&quot;</code></li>
+<li><code>&quot;MAT3&quot;</code></li>
+<li><code>&quot;MAT4&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="accessormax">accessor.max</h3>
+<p>Maximum value of each component in this attribute.  Array elements must be treated as having the same data type as accessor's <code>componentType</code>. Both min and max arrays have the same length.  The length is determined by the value of the type property; it can be 1, 2, 3, 4, 9, or 16.</p>
+<p><code>normalized</code> property has no effect on array values: they always correspond to the actual values stored in the buffer. When accessor is sparse, this property must contain max values of accessor data with sparse substitution applied.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[1-16]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="accessormin">accessor.min</h3>
+<p>Minimum value of each component in this attribute.  Array elements must be treated as having the same data type as accessor's <code>componentType</code>. Both min and max arrays have the same length.  The length is determined by the value of the type property; it can be 1, 2, 3, 4, 9, or 16.</p>
+<p><code>normalized</code> property has no effect on array values: they always correspond to the actual values stored in the buffer. When accessor is sparse, this property must contain min values of accessor data with sparse substitution applied.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[1-16]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="accessorsparse">accessor.sparse</h3>
+<p>Sparse storage of attributes that deviate from their initialization value.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="accessorname"><a href="http://accessor.name">accessor.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="accessorextensions">accessor.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="accessorextras">accessor.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-accessor-sparse"></a></p>
+<h2 id="accessor-sparse">Accessor Sparse</h2>
+<p>Sparse storage of attributes that deviate from their initialization value.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>count</strong></td>
+<td><code>integer</code></td>
+<td>Number of entries stored in the sparse array.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>indices</strong></td>
+<td><code>object</code></td>
+<td>Index array of size <code>count</code> that points to those accessor attributes that deviate from their initialization value. Indices must strictly increase.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>values</strong></td>
+<td><code>object</code></td>
+<td>Array of size <code>count</code> times number of components, storing the displaced accessor attributes pointed by <code>indices</code>. Substituted values must have the same <code>componentType</code> and number of components as the base accessor.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="accessorsparsecount-whitecheckmark">accessor.sparse.count :white_check_mark:</h3>
+<p>The number of attributes encoded in this sparse accessor.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 1</code></li>
+</ul>
+<h3 id="accessorsparseindices-whitecheckmark">accessor.sparse.indices :white_check_mark:</h3>
+<p>Index array of size <code>count</code> that points to those accessor attributes that deviate from their initialization value. Indices must strictly increase.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="accessorsparsevalues-whitecheckmark">accessor.sparse.values :white_check_mark:</h3>
+<p>Array of size <code>count</code> times number of components, storing the displaced accessor attributes pointed by <code>indices</code>. Substituted values must have the same <code>componentType</code> and number of components as the base accessor.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="accessorsparseextensions">accessor.sparse.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="accessorsparseextras">accessor.sparse.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-accessor-sparse-indices"></a></p>
+<h2 id="accessor-sparse-indices">Accessor Sparse Indices</h2>
+<p>Indices of those attributes that deviate from their initialization value.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>bufferView</strong></td>
+<td><code>integer</code></td>
+<td>The index of the bufferView with sparse indices. Referenced bufferView can't have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>byteOffset</strong></td>
+<td><code>integer</code></td>
+<td>The offset relative to the start of the bufferView in bytes. Must be aligned.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>componentType</strong></td>
+<td><code>integer</code></td>
+<td>The indices data type.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="accessorsparseindicesbufferview-whitecheckmark">accessor.sparse.indices.bufferView :white_check_mark:</h3>
+<p>The index of the bufferView with sparse indices. Referenced bufferView can't have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="accessorsparseindicesbyteoffset">accessor.sparse.indices.byteOffset</h3>
+<p>The offset relative to the start of the bufferView in bytes. Must be aligned.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="accessorsparseindicescomponenttype-whitecheckmark">accessor.sparse.indices.componentType :white_check_mark:</h3>
+<p>The indices data type.  Valid values correspond to WebGL enums: <code>5121</code> (UNSIGNED_BYTE), <code>5123</code> (UNSIGNED_SHORT), <code>5125</code> (UNSIGNED_INT).</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>5121</code> UNSIGNED_BYTE</li>
+<li><code>5123</code> UNSIGNED_SHORT</li>
+<li><code>5125</code> UNSIGNED_INT</li>
+</ul>
+</li>
+</ul>
+<h3 id="accessorsparseindicesextensions">accessor.sparse.indices.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="accessorsparseindicesextras">accessor.sparse.indices.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-accessor-sparse-values"></a></p>
+<h2 id="accessor-sparse-values">Accessor Sparse Values</h2>
+<p>Array of size <code>accessor.sparse.count</code> times number of components storing the displaced accessor attributes pointed by <code>accessor.sparse.indices</code>.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>bufferView</strong></td>
+<td><code>integer</code></td>
+<td>The index of the bufferView with sparse values. Referenced bufferView can't have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>byteOffset</strong></td>
+<td><code>integer</code></td>
+<td>The offset relative to the start of the bufferView in bytes. Must be aligned.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="accessorsparsevaluesbufferview-whitecheckmark">accessor.sparse.values.bufferView :white_check_mark:</h3>
+<p>The index of the bufferView with sparse values. Referenced bufferView can't have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="accessorsparsevaluesbyteoffset">accessor.sparse.values.byteOffset</h3>
+<p>The offset relative to the start of the bufferView in bytes. Must be aligned.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="accessorsparsevaluesextensions">accessor.sparse.values.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="accessorsparsevaluesextras">accessor.sparse.values.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-animation"></a></p>
+<h2 id="animation">Animation</h2>
+<p>A keyframe animation.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>channels</strong></td>
+<td>Animation Channel <code>[1-*]</code></td>
+<td>An array of channels, each of which targets an animation's sampler at a node's property. Different channels of the same animation can't have equal targets.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>samplers</strong></td>
+<td>Animation Sampler <code>[1-*]</code></td>
+<td>An array of samplers that combines input and output accessors with an interpolation algorithm to define a keyframe graph (but not its target).</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="animationchannels-whitecheckmark">animation.channels :white_check_mark:</h3>
+<p>An array of channels, each of which targets an animation's sampler at a node's property. Different channels of the same animation can't have equal targets.</p>
+<ul>
+<li><strong>Type</strong>: Animation Channel <code>[1-*]</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="animationsamplers-whitecheckmark">animation.samplers :white_check_mark:</h3>
+<p>An array of samplers that combines input and output accessors with an interpolation algorithm to define a keyframe graph (but not its target).</p>
+<ul>
+<li><strong>Type</strong>: Animation Sampler <code>[1-*]</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="animationname"><a href="http://animation.name">animation.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="animationextensions">animation.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="animationextras">animation.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-animation-channel"></a></p>
+<h2 id="animation-channel">Animation Channel</h2>
+<p>Targets an animation's sampler at a node's property.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sampler</strong></td>
+<td><code>integer</code></td>
+<td>The index of a sampler in this animation used to compute the value for the target.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td><code>object</code></td>
+<td>The index of the node and TRS property to target.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="animationchannelsampler-whitecheckmark">animation.channel.sampler :white_check_mark:</h3>
+<p>The index of a sampler in this animation used to compute the value for the target, e.g., a node's translation, rotation, or scale (TRS).</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="animationchanneltarget-whitecheckmark">animation.channel.target :white_check_mark:</h3>
+<p>The index of the node and TRS property to target.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="animationchannelextensions">animation.channel.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="animationchannelextras">animation.channel.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-animation-channel-target"></a></p>
+<h2 id="animation-channel-target">Animation Channel Target</h2>
+<p>The index of the node and TRS property that an animation channel targets.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>node</strong></td>
+<td><code>integer</code></td>
+<td>The index of the node to target.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>path</strong></td>
+<td><code>string</code></td>
+<td>The name of the node's TRS property to modify, or the &quot;weights&quot; of the Morph Targets it instantiates. For the &quot;translation&quot; property, the values that are provided by the sampler are the translation along the x, y, and z axes. For the &quot;rotation&quot; property, the values are a quaternion in the order (x, y, z, w), where w is the scalar. For the &quot;scale&quot; property, the values are the scaling factors along the x, y, and z axes.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="animationchanneltargetnode">animation.channel.target.node</h3>
+<p>The index of the node to target.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="animationchanneltargetpath-whitecheckmark">animation.channel.target.path :white_check_mark:</h3>
+<p>The name of the node's TRS property to modify, or the &quot;weights&quot; of the Morph Targets it instantiates. For the &quot;translation&quot; property, the values that are provided by the sampler are the translation along the x, y, and z axes. For the &quot;rotation&quot; property, the values are a quaternion in the order (x, y, z, w), where w is the scalar. For the &quot;scale&quot; property, the values are the scaling factors along the x, y, and z axes.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;translation&quot;</code></li>
+<li><code>&quot;rotation&quot;</code></li>
+<li><code>&quot;scale&quot;</code></li>
+<li><code>&quot;weights&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="animationchanneltargetextensions">animation.channel.target.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="animationchanneltargetextras">animation.channel.target.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-animation-sampler"></a></p>
+<h2 id="animation-sampler">Animation Sampler</h2>
+<p>Combines input and output accessors with an interpolation algorithm to define a keyframe graph (but not its target).</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>input</strong></td>
+<td><code>integer</code></td>
+<td>The index of an accessor containing keyframe input values, e.g., time.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>interpolation</strong></td>
+<td><code>string</code></td>
+<td>Interpolation algorithm.</td>
+<td>No, default: <code>&quot;LINEAR&quot;</code></td>
+</tr>
+<tr>
+<td><strong>output</strong></td>
+<td><code>integer</code></td>
+<td>The index of an accessor, containing keyframe output values.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="animationsamplerinput-whitecheckmark">animation.sampler.input :white_check_mark:</h3>
+<p>The index of an accessor containing keyframe input values, e.g., time. That accessor must have componentType <code>FLOAT</code>. The values represent time in seconds with <code>time[0] &gt;= 0.0</code>, and strictly increasing values, i.e., <code>time[n + 1] &gt; time[n]</code>.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="animationsamplerinterpolation">animation.sampler.interpolation</h3>
+<p>Interpolation algorithm.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No, default: <code>&quot;LINEAR&quot;</code></li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;LINEAR&quot;</code> The animated values are linearly interpolated between keyframes. When targeting a rotation, spherical linear interpolation (slerp) should be used to interpolate quaternions. The number output of elements must equal the number of input elements.</li>
+<li><code>&quot;STEP&quot;</code> The animated values remain constant to the output of the first keyframe, until the next keyframe. The number of output elements must equal the number of input elements.</li>
+<li><code>&quot;CUBICSPLINE&quot;</code> The animation's interpolation is computed using a cubic spline with specified tangents. The number of output elements must equal three times the number of input elements. For each input element, the output stores three elements, an in-tangent, a spline vertex, and an out-tangent. There must be at least two keyframes when using this interpolation.</li>
+</ul>
+</li>
+</ul>
+<h3 id="animationsampleroutput-whitecheckmark">animation.sampler.output :white_check_mark:</h3>
+<p>The index of an accessor containing keyframe output values. When targeting translation or scale paths, the <code>accessor.componentType</code> of the output values must be <code>FLOAT</code>. When targeting rotation or morph weights, the <code>accessor.componentType</code> of the output values must be <code>FLOAT</code> or normalized integer. For weights, each output element stores <code>SCALAR</code> values with a count equal to the number of morph targets.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="animationsamplerextensions">animation.sampler.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="animationsamplerextras">animation.sampler.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-asset"></a></p>
+<h2 id="asset">Asset</h2>
+<p>Metadata about the glTF asset.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>copyright</strong></td>
+<td><code>string</code></td>
+<td>A copyright message suitable for display to credit the content creator.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>generator</strong></td>
+<td><code>string</code></td>
+<td>Tool that generated this glTF model.  Useful for debugging.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>version</strong></td>
+<td><code>string</code></td>
+<td>The glTF version that this asset targets.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>minVersion</strong></td>
+<td><code>string</code></td>
+<td>The minimum glTF version that this asset targets.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="assetcopyright">asset.copyright</h3>
+<p>A copyright message suitable for display to credit the content creator.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="assetgenerator">asset.generator</h3>
+<p>Tool that generated this glTF model.  Useful for debugging.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="assetversion-whitecheckmark">asset.version :white_check_mark:</h3>
+<p>The glTF version that this asset targets.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="assetminversion">asset.minVersion</h3>
+<p>The minimum glTF version that this asset targets.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="assetextensions">asset.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="assetextras">asset.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-buffer"></a></p>
+<h2 id="buffer">Buffer</h2>
+<p>A buffer points to binary geometry, animation, or skins.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>uri</strong></td>
+<td><code>string</code></td>
+<td>The uri of the buffer.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>byteLength</strong></td>
+<td><code>integer</code></td>
+<td>The length of the buffer in bytes.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="bufferuri">buffer.uri</h3>
+<p>The uri of the buffer.  Relative paths are relative to the .gltf file.  Instead of referencing an external file, the uri can also be a data-uri.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Format</strong>: uriref</li>
+</ul>
+<h3 id="bufferbytelength-whitecheckmark">buffer.byteLength :white_check_mark:</h3>
+<p>The length of the buffer in bytes.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 1</code></li>
+</ul>
+<h3 id="buffername"><a href="http://buffer.name">buffer.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="bufferextensions">buffer.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="bufferextras">buffer.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-buffer-view"></a></p>
+<h2 id="buffer-view">Buffer View</h2>
+<p>A view into a buffer generally representing a subset of the buffer.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>buffer</strong></td>
+<td><code>integer</code></td>
+<td>The index of the buffer.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>byteOffset</strong></td>
+<td><code>integer</code></td>
+<td>The offset into the buffer in bytes.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>byteLength</strong></td>
+<td><code>integer</code></td>
+<td>The length of the bufferView in bytes.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>byteStride</strong></td>
+<td><code>integer</code></td>
+<td>The stride, in bytes.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td><code>integer</code></td>
+<td>The target that the GPU buffer should be bound to.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="bufferviewbuffer-whitecheckmark">buffer.view.buffer :white_check_mark:</h3>
+<p>The index of the buffer.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="bufferviewbyteoffset">buffer.view.byteOffset</h3>
+<p>The offset into the buffer in bytes.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="bufferviewbytelength-whitecheckmark">buffer.view.byteLength :white_check_mark:</h3>
+<p>The length of the bufferView in bytes.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 1</code></li>
+</ul>
+<h3 id="bufferviewbytestride">buffer.view.byteStride</h3>
+<p>The stride, in bytes, between vertex attributes.  When this is not defined, data is tightly packed. When two or more accessors use the same bufferView, this field must be defined.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 4</code></li>
+<li><strong>Maximum</strong>: <code>&lt;= 252</code></li>
+<li><strong>Related WebGL functions</strong>: <code>vertexAttribPointer()</code> stride parameter</li>
+</ul>
+<h3 id="bufferviewtarget">buffer.view.target</h3>
+<p>The target that the GPU buffer should be bound to.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>34962</code> ARRAY_BUFFER</li>
+<li><code>34963</code> ELEMENT_ARRAY_BUFFER</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>bindBuffer()</code></li>
+</ul>
+<h3 id="bufferviewname"><a href="http://buffer.view.name">buffer.view.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="bufferviewextensions">buffer.view.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="bufferviewextras">buffer.view.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-camera"></a></p>
+<h2 id="camera">Camera</h2>
+<p>A camera's projection.  A node can reference a camera to apply a transform to place the camera in the scene.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>orthographic</strong></td>
+<td><code>object</code></td>
+<td>An orthographic camera containing properties to create an orthographic projection matrix.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>perspective</strong></td>
+<td><code>object</code></td>
+<td>A perspective camera containing properties to create a perspective projection matrix.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td><code>string</code></td>
+<td>Specifies if the camera uses a perspective or orthographic projection.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="cameraorthographic">camera.orthographic</h3>
+<p>An orthographic camera containing properties to create an orthographic projection matrix.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="cameraperspective">camera.perspective</h3>
+<p>A perspective camera containing properties to create a perspective projection matrix.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="cameratype-whitecheckmark">camera.type :white_check_mark:</h3>
+<p>Specifies if the camera uses a perspective or orthographic projection.  Based on this, either the camera's <code>perspective</code> or <code>orthographic</code> property will be defined.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;perspective&quot;</code></li>
+<li><code>&quot;orthographic&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="cameraname"><a href="http://camera.name">camera.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="cameraextensions">camera.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="cameraextras">camera.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-camera-orthographic"></a></p>
+<h2 id="camera-orthographic">Camera Orthographic</h2>
+<p>An orthographic camera containing properties to create an orthographic projection matrix.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>xmag</strong></td>
+<td><code>number</code></td>
+<td>The floating-point horizontal magnification of the view. Must not be zero.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>ymag</strong></td>
+<td><code>number</code></td>
+<td>The floating-point vertical magnification of the view. Must not be zero.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>zfar</strong></td>
+<td><code>number</code></td>
+<td>The floating-point distance to the far clipping plane. <code>zfar</code> must be greater than <code>znear</code>.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>znear</strong></td>
+<td><code>number</code></td>
+<td>The floating-point distance to the near clipping plane.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="cameraorthographicxmag-whitecheckmark">camera.orthographic.xmag :white_check_mark:</h3>
+<p>The floating-point horizontal magnification of the view. Must not be zero.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="cameraorthographicymag-whitecheckmark">camera.orthographic.ymag :white_check_mark:</h3>
+<p>The floating-point vertical magnification of the view. Must not be zero.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="cameraorthographiczfar-whitecheckmark">camera.orthographic.zfar :white_check_mark:</h3>
+<p>The floating-point distance to the far clipping plane. <code>zfar</code> must be greater than <code>znear</code>.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt; 0</code></li>
+</ul>
+<h3 id="cameraorthographicznear-whitecheckmark">camera.orthographic.znear :white_check_mark:</h3>
+<p>The floating-point distance to the near clipping plane.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="cameraorthographicextensions">camera.orthographic.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="cameraorthographicextras">camera.orthographic.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-camera-perspective"></a></p>
+<h2 id="camera-perspective">Camera Perspective</h2>
+<p>A perspective camera containing properties to create a perspective projection matrix.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>aspectRatio</strong></td>
+<td><code>number</code></td>
+<td>The floating-point aspect ratio of the field of view.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>yfov</strong></td>
+<td><code>number</code></td>
+<td>The floating-point vertical field of view in radians.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>zfar</strong></td>
+<td><code>number</code></td>
+<td>The floating-point distance to the far clipping plane.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>znear</strong></td>
+<td><code>number</code></td>
+<td>The floating-point distance to the near clipping plane.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="cameraperspectiveaspectratio">camera.perspective.aspectRatio</h3>
+<p>The floating-point aspect ratio of the field of view. When this is undefined, the aspect ratio of the canvas is used.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt; 0</code></li>
+</ul>
+<h3 id="cameraperspectiveyfov-whitecheckmark">camera.perspective.yfov :white_check_mark:</h3>
+<p>The floating-point vertical field of view in radians.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt; 0</code></li>
+</ul>
+<h3 id="cameraperspectivezfar">camera.perspective.zfar</h3>
+<p>The floating-point distance to the far clipping plane. When defined, <code>zfar</code> must be greater than <code>znear</code>. If <code>zfar</code> is undefined, runtime must use infinite projection matrix.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt; 0</code></li>
+</ul>
+<h3 id="cameraperspectiveznear-whitecheckmark">camera.perspective.znear :white_check_mark:</h3>
+<p>The floating-point distance to the near clipping plane.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt; 0</code></li>
+</ul>
+<h3 id="cameraperspectiveextensions">camera.perspective.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="cameraperspectiveextras">camera.perspective.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-extension"></a></p>
+<h2 id="extension">Extension</h2>
+<p>Dictionary object with extension-specific objects.</p>
+<p>Additional properties are allowed.</p>
+<hr>
+<p><a name="reference-extras"></a></p>
+<h2 id="extras">Extras</h2>
+<p>Application-specific data.</p>
+<hr>
+<p><a name="reference-gltf"></a></p>
+<h2 id="gltf">glTF</h2>
+<p>The root object for a glTF asset.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>extensionsUsed</strong></td>
+<td><code>string</code> <code>[1-*]</code></td>
+<td>Names of glTF extensions used somewhere in this asset.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensionsRequired</strong></td>
+<td><code>string</code> <code>[1-*]</code></td>
+<td>Names of glTF extensions required to properly load this asset.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>accessors</strong></td>
+<td>Accessor <code>[1-*]</code></td>
+<td>An array of accessors.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>animations</strong></td>
+<td>Animation <code>[1-*]</code></td>
+<td>An array of keyframe animations.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>asset</strong></td>
+<td><code>object</code></td>
+<td>Metadata about the glTF asset.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>buffers</strong></td>
+<td>Buffer <code>[1-*]</code></td>
+<td>An array of buffers.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>bufferViews</strong></td>
+<td>Buffer View <code>[1-*]</code></td>
+<td>An array of bufferViews.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>cameras</strong></td>
+<td>Camera <code>[1-*]</code></td>
+<td>An array of cameras.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>images</strong></td>
+<td>Image <code>[1-*]</code></td>
+<td>An array of images.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>materials</strong></td>
+<td>Material <code>[1-*]</code></td>
+<td>An array of materials.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>meshes</strong></td>
+<td>Mesh <code>[1-*]</code></td>
+<td>An array of meshes.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>nodes</strong></td>
+<td>Node <code>[1-*]</code></td>
+<td>An array of nodes.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>samplers</strong></td>
+<td>Sampler <code>[1-*]</code></td>
+<td>An array of samplers.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>scene</strong></td>
+<td><code>integer</code></td>
+<td>The index of the default scene.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>scenes</strong></td>
+<td>Scene <code>[1-*]</code></td>
+<td>An array of scenes.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>skins</strong></td>
+<td>Skin <code>[1-*]</code></td>
+<td>An array of skins.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>textures</strong></td>
+<td>Texture <code>[1-*]</code></td>
+<td>An array of textures.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="gltfextensionsused">gltf.extensionsUsed</h3>
+<p>Names of glTF extensions used somewhere in this asset.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code> <code>[1-*]</code>
+<ul>
+<li>Each element in the array must be unique.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfextensionsrequired">gltf.extensionsRequired</h3>
+<p>Names of glTF extensions required to properly load this asset.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code> <code>[1-*]</code>
+<ul>
+<li>Each element in the array must be unique.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfaccessors">gltf.accessors</h3>
+<p>An array of accessors.  An accessor is a typed view into a bufferView.</p>
+<ul>
+<li><strong>Type</strong>: Accessor <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfanimations">gltf.animations</h3>
+<p>An array of keyframe animations.</p>
+<ul>
+<li><strong>Type</strong>: Animation <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfasset">gltf.asset</h3>
+<p>Metadata about the glTF asset.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfbuffers">gltf.buffers</h3>
+<p>An array of buffers.  A buffer points to binary geometry, animation, or skins.</p>
+<ul>
+<li><strong>Type</strong>: Buffer <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfbufferviews">gltf.bufferViews</h3>
+<p>An array of bufferViews.  A bufferView is a view into a buffer generally representing a subset of the buffer.</p>
+<ul>
+<li><strong>Type</strong>: Buffer View <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfcameras">gltf.cameras</h3>
+<p>An array of cameras.  A camera defines a projection matrix.</p>
+<ul>
+<li><strong>Type</strong>: Camera <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfimages">gltf.images</h3>
+<p>An array of images.  An image defines data used to create a texture.</p>
+<ul>
+<li><strong>Type</strong>: Image <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfmaterials">gltf.materials</h3>
+<p>An array of materials.  A material defines the appearance of a primitive.</p>
+<ul>
+<li><strong>Type</strong>: Material <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfmeshes">gltf.meshes</h3>
+<p>An array of meshes.  A mesh is a set of primitives to be rendered.</p>
+<ul>
+<li><strong>Type</strong>: Mesh <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfnodes">gltf.nodes</h3>
+<p>An array of nodes.</p>
+<ul>
+<li><strong>Type</strong>: Node <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfsamplers">gltf.samplers</h3>
+<p>An array of samplers.  A sampler contains properties for texture filtering and wrapping modes.</p>
+<ul>
+<li><strong>Type</strong>: Sampler <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfscene">gltf.scene</h3>
+<p>The index of the default scene.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="gltfscenes">gltf.scenes</h3>
+<p>An array of scenes.</p>
+<ul>
+<li><strong>Type</strong>: Scene <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfskins">gltf.skins</h3>
+<p>An array of skins.  A skin is defined by joints and matrices.</p>
+<ul>
+<li><strong>Type</strong>: Skin <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltftextures">gltf.textures</h3>
+<p>An array of textures.</p>
+<ul>
+<li><strong>Type</strong>: Texture <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfextensions">gltf.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="gltfextras">gltf.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-gltf-child-of-root-property"></a></p>
+<h2 id="gltf-child-of-root-property">glTF Child of Root Property</h2>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="gltfchildofrootpropertyname"><a href="http://gltf.child.of.root.property.name">gltf.child.of.root.property.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="gltfchildofrootpropertyextensions">gltf.child.of.root.property.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="gltfchildofrootpropertyextras">gltf.child.of.root.property.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-gltf-id"></a></p>
+<h2 id="gltf-id">glTF Id</h2>
+<hr>
+<p><a name="reference-gltf-property"></a></p>
+<h2 id="gltf-property">glTF Property</h2>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="gltfpropertyextensions">gltf.property.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="gltfpropertyextras">gltf.property.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-image"></a></p>
+<h2 id="image">Image</h2>
+<p>Image data used to create a texture. Image can be referenced by URI or <code>bufferView</code> index. <code>mimeType</code> is required in the latter case.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>uri</strong></td>
+<td><code>string</code></td>
+<td>The uri of the image.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>mimeType</strong></td>
+<td><code>string</code></td>
+<td>The image's MIME type. Required if <code>bufferView</code> is defined.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>bufferView</strong></td>
+<td><code>integer</code></td>
+<td>The index of the bufferView that contains the image. Use this instead of the image's uri property.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="imageuri">image.uri</h3>
+<p>The uri of the image.  Relative paths are relative to the .gltf file.  Instead of referencing an external file, the uri can also be a data-uri.  The image format must be jpg or png.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Format</strong>: uriref</li>
+</ul>
+<h3 id="imagemimetype">image.mimeType</h3>
+<p>The image's MIME type. Required if <code>bufferView</code> is defined.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;image/jpeg&quot;</code></li>
+<li><code>&quot;image/png&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="imagebufferview">image.bufferView</h3>
+<p>The index of the bufferView that contains the image. Use this instead of the image's uri property.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="imagename"><a href="http://image.name">image.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="imageextensions">image.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="imageextras">image.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-material"></a></p>
+<h2 id="material">Material</h2>
+<p>The material appearance of a primitive.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>pbrMetallicRoughness</strong></td>
+<td><code>object</code></td>
+<td>A set of parameter values that are used to define the metallic-roughness material model from Physically-Based Rendering (PBR) methodology. When not specified, all the default values of <code>pbrMetallicRoughness</code> apply.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>normalTexture</strong></td>
+<td><code>object</code></td>
+<td>The normal map texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>occlusionTexture</strong></td>
+<td><code>object</code></td>
+<td>The occlusion map texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>emissiveTexture</strong></td>
+<td><code>object</code></td>
+<td>The emissive map texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>emissiveFactor</strong></td>
+<td><code>number</code> <code>[3]</code></td>
+<td>The emissive color of the material.</td>
+<td>No, default: <code>[0,0,0]</code></td>
+</tr>
+<tr>
+<td><strong>alphaMode</strong></td>
+<td><code>string</code></td>
+<td>The alpha rendering mode of the material.</td>
+<td>No, default: <code>&quot;OPAQUE&quot;</code></td>
+</tr>
+<tr>
+<td><strong>alphaCutoff</strong></td>
+<td><code>number</code></td>
+<td>The alpha cutoff value of the material.</td>
+<td>No, default: <code>0.5</code></td>
+</tr>
+<tr>
+<td><strong>doubleSided</strong></td>
+<td><code>boolean</code></td>
+<td>Specifies whether the material is double sided.</td>
+<td>No, default: <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="materialname"><a href="http://material.name">material.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialextensions">material.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="materialextras">material.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialpbrmetallicroughness">material.pbrMetallicRoughness</h3>
+<p>A set of parameter values that are used to define the metallic-roughness material model from Physically-Based Rendering (PBR) methodology. When not specified, all the default values of <code>pbrMetallicRoughness</code> apply.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialnormaltexture">material.normalTexture</h3>
+<p>A tangent space normal map. The texture contains RGB components in linear space. Each texel represents the XYZ components of a normal vector in tangent space. Red [0 to 255] maps to X [-1 to 1]. Green [0 to 255] maps to Y [-1 to 1]. Blue [128 to 255] maps to Z [1/255 to 1]. The normal vectors use OpenGL conventions where +X is right and +Y is up. +Z points toward the viewer. In GLSL, this vector would be unpacked like so: <code>float3 normalVector = tex2D(&lt;sampled normal map texture value&gt;, texCoord) * 2 - 1</code>. Client implementations should normalize the normal vectors before using them in lighting equations.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialocclusiontexture">material.occlusionTexture</h3>
+<p>The occlusion map texture. The occlusion values are sampled from the R channel. Higher values indicate areas that should receive full indirect lighting and lower values indicate no indirect lighting. These values are linear. If other channels are present (GBA), they are ignored for occlusion calculations.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialemissivetexture">material.emissiveTexture</h3>
+<p>The emissive map controls the color and intensity of the light being emitted by the material. This texture contains RGB components in sRGB color space. If a fourth component (A) is present, it is ignored.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialemissivefactor">material.emissiveFactor</h3>
+<p>The RGB components of the emissive color of the material. These values are linear. If an emissiveTexture is specified, this value is multiplied with the texel values.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[3]</code>
+<ul>
+<li>Each element in the array must be greater than or equal to <code>0</code> and less than or equal to <code>1</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No, default: <code>[0,0,0]</code></li>
+</ul>
+<h3 id="materialalphamode">material.alphaMode</h3>
+<p>The material's alpha rendering mode enumeration specifying the interpretation of the alpha value of the main factor and texture.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No, default: <code>&quot;OPAQUE&quot;</code></li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>&quot;OPAQUE&quot;</code> The alpha value is ignored and the rendered output is fully opaque.</li>
+<li><code>&quot;MASK&quot;</code> The rendered output is either fully opaque or fully transparent depending on the alpha value and the specified alpha cutoff value.</li>
+<li><code>&quot;BLEND&quot;</code> The alpha value is used to composite the source and destination areas. The rendered output is combined with the background using the normal painting operation (i.e. the Porter and Duff over operator).</li>
+</ul>
+</li>
+</ul>
+<h3 id="materialalphacutoff">material.alphaCutoff</h3>
+<p>Specifies the cutoff threshold when in <code>MASK</code> mode. If the alpha value is greater than or equal to this value then it is rendered as fully opaque, otherwise, it is rendered as fully transparent. A value greater than 1.0 will render the entire material as fully transparent. This value is ignored for other modes.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No, default: <code>0.5</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="materialdoublesided">material.doubleSided</h3>
+<p>Specifies whether the material is double sided. When this value is false, back-face culling is enabled. When this value is true, back-face culling is disabled and double sided lighting is enabled. The back-face must have its normals reversed before the lighting equation is evaluated.</p>
+<ul>
+<li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: No, default: <code>false</code></li>
+</ul>
+<hr>
+<p><a name="reference-material-normal-texture-info"></a></p>
+<h2 id="material-normal-texture-info">Material Normal Texture Info</h2>
+<p>Reference to a texture.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>index</strong></td>
+<td><code>integer</code></td>
+<td>The index of the texture.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>texCoord</strong></td>
+<td><code>integer</code></td>
+<td>The set index of texture's TEXCOORD attribute used for texture coordinate mapping.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>scale</strong></td>
+<td><code>number</code></td>
+<td>The scalar multiplier applied to each normal vector of the normal texture.</td>
+<td>No, default: <code>1</code></td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="materialnormaltextureinfoindex-whitecheckmark">material.normal.texture.info.index :white_check_mark:</h3>
+<p>The index of the texture.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="materialnormaltextureinfotexcoord">material.normal.texture.info.texCoord</h3>
+<p>This integer value is used to construct a string in the format <code>TEXCOORD_&lt;set index&gt;</code> which is a reference to a key in mesh.primitives.attributes (e.g. A value of <code>0</code> corresponds to <code>TEXCOORD_0</code>). Mesh must have corresponding texture coordinate attributes for the material to be applicable to it.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="materialnormaltextureinfoscale">material.normal.texture.info.scale</h3>
+<p>The scalar multiplier applied to each normal vector of the texture. This value scales the normal vector using the formula: <code>scaledNormal = normalize((&lt;sampled normal texture value&gt; * 2.0 - 1.0) * vec3(&lt;normal scale&gt;, &lt;normal scale&gt;, 1.0))</code>. This value is ignored if normalTexture is not specified. This value is linear.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No, default: <code>1</code></li>
+</ul>
+<h3 id="materialnormaltextureinfoextensions">material.normal.texture.info.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="materialnormaltextureinfoextras">material.normal.texture.info.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-material-occlusion-texture-info"></a></p>
+<h2 id="material-occlusion-texture-info">Material Occlusion Texture Info</h2>
+<p>Reference to a texture.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>index</strong></td>
+<td><code>integer</code></td>
+<td>The index of the texture.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>texCoord</strong></td>
+<td><code>integer</code></td>
+<td>The set index of texture's TEXCOORD attribute used for texture coordinate mapping.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>strength</strong></td>
+<td><code>number</code></td>
+<td>A scalar multiplier controlling the amount of occlusion applied.</td>
+<td>No, default: <code>1</code></td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="materialocclusiontextureinfoindex-whitecheckmark">material.occlusion.texture.info.index :white_check_mark:</h3>
+<p>The index of the texture.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="materialocclusiontextureinfotexcoord">material.occlusion.texture.info.texCoord</h3>
+<p>This integer value is used to construct a string in the format <code>TEXCOORD_&lt;set index&gt;</code> which is a reference to a key in mesh.primitives.attributes (e.g. A value of <code>0</code> corresponds to <code>TEXCOORD_0</code>). Mesh must have corresponding texture coordinate attributes for the material to be applicable to it.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="materialocclusiontextureinfostrength">material.occlusion.texture.info.strength</h3>
+<p>A scalar multiplier controlling the amount of occlusion applied. A value of 0.0 means no occlusion. A value of 1.0 means full occlusion. This value affects the resulting color using the formula: <code>occludedColor = lerp(color, color * &lt;sampled occlusion texture value&gt;, &lt;occlusion strength&gt;)</code>. This value is ignored if the corresponding texture is not specified. This value is linear.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No, default: <code>1</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+<li><strong>Maximum</strong>: <code>&lt;= 1</code></li>
+</ul>
+<h3 id="materialocclusiontextureinfoextensions">material.occlusion.texture.info.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="materialocclusiontextureinfoextras">material.occlusion.texture.info.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-material-pbr-metallic-roughness"></a></p>
+<h2 id="material-pbr-metallic-roughness">Material PBR Metallic Roughness</h2>
+<p>A set of parameter values that are used to define the metallic-roughness material model from Physically-Based Rendering (PBR) methodology.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>baseColorFactor</strong></td>
+<td><code>number</code> <code>[4]</code></td>
+<td>The material's base color factor.</td>
+<td>No, default: <code>[1,1,1,1]</code></td>
+</tr>
+<tr>
+<td><strong>baseColorTexture</strong></td>
+<td><code>object</code></td>
+<td>The base color texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>metallicFactor</strong></td>
+<td><code>number</code></td>
+<td>The metalness of the material.</td>
+<td>No, default: <code>1</code></td>
+</tr>
+<tr>
+<td><strong>roughnessFactor</strong></td>
+<td><code>number</code></td>
+<td>The roughness of the material.</td>
+<td>No, default: <code>1</code></td>
+</tr>
+<tr>
+<td><strong>metallicRoughnessTexture</strong></td>
+<td><code>object</code></td>
+<td>The metallic-roughness texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="materialpbrmetallicroughnessbasecolorfactor">material.pbr.metallic.roughness.baseColorFactor</h3>
+<p>The RGBA components of the base color of the material. The fourth component (A) is the alpha coverage of the material. The <code>alphaMode</code> property specifies how alpha is interpreted. These values are linear. If a baseColorTexture is specified, this value is multiplied with the texel values.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[4]</code>
+<ul>
+<li>Each element in the array must be greater than or equal to <code>0</code> and less than or equal to <code>1</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No, default: <code>[1,1,1,1]</code></li>
+</ul>
+<h3 id="materialpbrmetallicroughnessbasecolortexture">material.pbr.metallic.roughness.baseColorTexture</h3>
+<p>The base color texture. This texture contains RGB(A) components in sRGB color space. The first three components (RGB) specify the base color of the material. If the fourth component (A) is present, it represents the alpha coverage of the material. Otherwise, an alpha of 1.0 is assumed. The <code>alphaMode</code> property specifies how alpha is interpreted. The stored texels must not be premultiplied.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialpbrmetallicroughnessmetallicfactor">material.pbr.metallic.roughness.metallicFactor</h3>
+<p>The metalness of the material. A value of 1.0 means the material is a metal. A value of 0.0 means the material is a dielectric. Values in between are for blending between metals and dielectrics such as dirty metallic surfaces. This value is linear. If a metallicRoughnessTexture is specified, this value is multiplied with the metallic texel values.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No, default: <code>1</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+<li><strong>Maximum</strong>: <code>&lt;= 1</code></li>
+</ul>
+<h3 id="materialpbrmetallicroughnessroughnessfactor">material.pbr.metallic.roughness.roughnessFactor</h3>
+<p>The roughness of the material. A value of 1.0 means the material is completely rough. A value of 0.0 means the material is completely smooth. This value is linear. If a metallicRoughnessTexture is specified, this value is multiplied with the roughness texel values.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code></li>
+<li><strong>Required</strong>: No, default: <code>1</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+<li><strong>Maximum</strong>: <code>&lt;= 1</code></li>
+</ul>
+<h3 id="materialpbrmetallicroughnessmetallicroughnesstexture">material.pbr.metallic.roughness.metallicRoughnessTexture</h3>
+<p>The metallic-roughness texture. The metalness values are sampled from the B channel. The roughness values are sampled from the G channel. These values are linear. If other channels are present (R or A), they are ignored for metallic-roughness calculations.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="materialpbrmetallicroughnessextensions">material.pbr.metallic.roughness.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="materialpbrmetallicroughnessextras">material.pbr.metallic.roughness.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-mesh"></a></p>
+<h2 id="mesh">Mesh</h2>
+<p>A set of primitives to be rendered.  A node can contain one mesh.  A node's transform places the mesh in the scene.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>primitives</strong></td>
+<td>Mesh Primitive <code>[1-*]</code></td>
+<td>An array of primitives, each defining geometry to be rendered with a material.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>weights</strong></td>
+<td><code>number</code> <code>[1-*]</code></td>
+<td>Array of weights to be applied to the Morph Targets.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="meshprimitives-whitecheckmark">mesh.primitives :white_check_mark:</h3>
+<p>An array of primitives, each defining geometry to be rendered with a material.</p>
+<ul>
+<li><strong>Type</strong>: Mesh Primitive <code>[1-*]</code></li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="meshweights">mesh.weights</h3>
+<p>Array of weights to be applied to the Morph Targets.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="meshname"><a href="http://mesh.name">mesh.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="meshextensions">mesh.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="meshextras">mesh.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-mesh-primitive"></a></p>
+<h2 id="mesh-primitive">Mesh Primitive</h2>
+<p>Geometry to be rendered with the given material.</p>
+<p><strong>Related WebGL functions</strong>: <code>drawElements()</code> and <code>drawArrays()</code></p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>attributes</strong></td>
+<td><code>object</code></td>
+<td>A dictionary object, where each key corresponds to mesh attribute semantic and each value is the index of the accessor containing attribute's data.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>indices</strong></td>
+<td><code>integer</code></td>
+<td>The index of the accessor that contains the indices.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>material</strong></td>
+<td><code>integer</code></td>
+<td>The index of the material to apply to this primitive when rendering.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>mode</strong></td>
+<td><code>integer</code></td>
+<td>The type of primitives to render.</td>
+<td>No, default: <code>4</code></td>
+</tr>
+<tr>
+<td><strong>targets</strong></td>
+<td><code>object</code> <code>[1-*]</code></td>
+<td>An array of Morph Targets, each  Morph Target is a dictionary mapping attributes (only <code>POSITION</code>, <code>NORMAL</code>, and <code>TANGENT</code> supported) to their deviations in the Morph Target.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="meshprimitiveattributes-whitecheckmark">mesh.primitive.attributes :white_check_mark:</h3>
+<p>A dictionary object, where each key corresponds to mesh attribute semantic and each value is the index of the accessor containing attribute's data.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Type of each property</strong>: <code>integer</code></li>
+</ul>
+<h3 id="meshprimitiveindices">mesh.primitive.indices</h3>
+<p>The index of the accessor that contains mesh indices.  When this is not defined, the primitives should be rendered without indices using <code>drawArrays()</code>.  When defined, the accessor must contain indices: the <code>bufferView</code> referenced by the accessor should have a <code>target</code> equal to 34963 (ELEMENT_ARRAY_BUFFER); <code>componentType</code> must be 5121 (UNSIGNED_BYTE), 5123 (UNSIGNED_SHORT) or 5125 (UNSIGNED_INT), the latter may require enabling additional hardware support; <code>type</code> must be <code>&quot;SCALAR&quot;</code>. For triangle primitives, the front face has a counter-clockwise (CCW) winding order.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="meshprimitivematerial">mesh.primitive.material</h3>
+<p>The index of the material to apply to this primitive when rendering.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="meshprimitivemode">mesh.primitive.mode</h3>
+<p>The type of primitives to render. All valid values correspond to WebGL enums.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>4</code></li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>0</code> POINTS</li>
+<li><code>1</code> LINES</li>
+<li><code>2</code> LINE_LOOP</li>
+<li><code>3</code> LINE_STRIP</li>
+<li><code>4</code> TRIANGLES</li>
+<li><code>5</code> TRIANGLE_STRIP</li>
+<li><code>6</code> TRIANGLE_FAN</li>
+</ul>
+</li>
+</ul>
+<h3 id="meshprimitivetargets">mesh.primitive.targets</h3>
+<p>An array of Morph Targets, each  Morph Target is a dictionary mapping attributes (only <code>POSITION</code>, <code>NORMAL</code>, and <code>TANGENT</code> supported) to their deviations in the Morph Target.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code> <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="meshprimitiveextensions">mesh.primitive.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="meshprimitiveextras">mesh.primitive.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-node"></a></p>
+<h2 id="node">Node</h2>
+<p>A node in the node hierarchy.  When the node contains <code>skin</code>, all <code>mesh.primitives</code> must contain <code>JOINTS_0</code> and <code>WEIGHTS_0</code> attributes.  A node can have either a <code>matrix</code> or any combination of <code>translation</code>/<code>rotation</code>/<code>scale</code> (TRS) properties. TRS properties are converted to matrices and postmultiplied in the <code>T * R * S</code> order to compose the transformation matrix; first the scale is applied to the vertices, then the rotation, and then the translation. If none are provided, the transform is the identity. When a node is targeted for animation (referenced by an animation.channel.target), only TRS properties may be present; <code>matrix</code> will not be present.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>camera</strong></td>
+<td><code>integer</code></td>
+<td>The index of the camera referenced by this node.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>children</strong></td>
+<td><code>integer</code> <code>[1-*]</code></td>
+<td>The indices of this node's children.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>skin</strong></td>
+<td><code>integer</code></td>
+<td>The index of the skin referenced by this node.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>matrix</strong></td>
+<td><code>number</code> <code>[16]</code></td>
+<td>A floating-point 4x4 transformation matrix stored in column-major order.</td>
+<td>No, default: <code>[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]</code></td>
+</tr>
+<tr>
+<td><strong>mesh</strong></td>
+<td><code>integer</code></td>
+<td>The index of the mesh in this node.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>rotation</strong></td>
+<td><code>number</code> <code>[4]</code></td>
+<td>The node's unit quaternion rotation in the order (x, y, z, w), where w is the scalar.</td>
+<td>No, default: <code>[0,0,0,1]</code></td>
+</tr>
+<tr>
+<td><strong>scale</strong></td>
+<td><code>number</code> <code>[3]</code></td>
+<td>The node's non-uniform scale, given as the scaling factors along the x, y, and z axes.</td>
+<td>No, default: <code>[1,1,1]</code></td>
+</tr>
+<tr>
+<td><strong>translation</strong></td>
+<td><code>number</code> <code>[3]</code></td>
+<td>The node's translation along the x, y, and z axes.</td>
+<td>No, default: <code>[0,0,0]</code></td>
+</tr>
+<tr>
+<td><strong>weights</strong></td>
+<td><code>number</code> <code>[1-*]</code></td>
+<td>The weights of the instantiated Morph Target. Number of elements must match number of Morph Targets of used mesh.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="nodecamera">node.camera</h3>
+<p>The index of the camera referenced by this node.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="nodechildren">node.children</h3>
+<p>The indices of this node's children.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code> <code>[1-*]</code>
+<ul>
+<li>Each element in the array must be unique.</li>
+<li>Each element in the array must be greater than or equal to <code>0</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="nodeskin">node.skin</h3>
+<p>The index of the skin referenced by this node.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="nodematrix">node.matrix</h3>
+<p>A floating-point 4x4 transformation matrix stored in column-major order.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[16]</code></li>
+<li><strong>Required</strong>: No, default: <code>[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]</code></li>
+<li><strong>Related WebGL functions</strong>: <code>uniformMatrix4fv()</code> with the transpose parameter equal to false</li>
+</ul>
+<h3 id="nodemesh">node.mesh</h3>
+<p>The index of the mesh in this node.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="noderotation">node.rotation</h3>
+<p>The node's unit quaternion rotation in the order (x, y, z, w), where w is the scalar.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[4]</code>
+<ul>
+<li>Each element in the array must be greater than or equal to <code>-1</code> and less than or equal to <code>1</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No, default: <code>[0,0,0,1]</code></li>
+</ul>
+<h3 id="nodescale">node.scale</h3>
+<p>The node's non-uniform scale, given as the scaling factors along the x, y, and z axes.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[3]</code></li>
+<li><strong>Required</strong>: No, default: <code>[1,1,1]</code></li>
+</ul>
+<h3 id="nodetranslation">node.translation</h3>
+<p>The node's translation along the x, y, and z axes.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[3]</code></li>
+<li><strong>Required</strong>: No, default: <code>[0,0,0]</code></li>
+</ul>
+<h3 id="nodeweights">node.weights</h3>
+<p>The weights of the instantiated Morph Target. Number of elements must match number of Morph Targets of used mesh.</p>
+<ul>
+<li><strong>Type</strong>: <code>number</code> <code>[1-*]</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="nodename"><a href="http://node.name">node.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="nodeextensions">node.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="nodeextras">node.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-sampler"></a></p>
+<h2 id="sampler">Sampler</h2>
+<p>Texture sampler properties for filtering and wrapping modes.</p>
+<p><strong>Related WebGL functions</strong>: <code>texParameterf()</code></p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>magFilter</strong></td>
+<td><code>integer</code></td>
+<td>Magnification filter.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>minFilter</strong></td>
+<td><code>integer</code></td>
+<td>Minification filter.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>wrapS</strong></td>
+<td><code>integer</code></td>
+<td>s wrapping mode.</td>
+<td>No, default: <code>10497</code></td>
+</tr>
+<tr>
+<td><strong>wrapT</strong></td>
+<td><code>integer</code></td>
+<td>t wrapping mode.</td>
+<td>No, default: <code>10497</code></td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="samplermagfilter">sampler.magFilter</h3>
+<p>Magnification filter.  Valid values correspond to WebGL enums: <code>9728</code> (NEAREST) and <code>9729</code> (LINEAR).</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>9728</code> NEAREST</li>
+<li><code>9729</code> LINEAR</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>texParameterf()</code> with pname equal to TEXTURE_MAG_FILTER</li>
+</ul>
+<h3 id="samplerminfilter">sampler.minFilter</h3>
+<p>Minification filter.  All valid values correspond to WebGL enums.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>9728</code> NEAREST</li>
+<li><code>9729</code> LINEAR</li>
+<li><code>9984</code> NEAREST_MIPMAP_NEAREST</li>
+<li><code>9985</code> LINEAR_MIPMAP_NEAREST</li>
+<li><code>9986</code> NEAREST_MIPMAP_LINEAR</li>
+<li><code>9987</code> LINEAR_MIPMAP_LINEAR</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>texParameterf()</code> with pname equal to TEXTURE_MIN_FILTER</li>
+</ul>
+<h3 id="samplerwraps">sampler.wrapS</h3>
+<p>S (U) wrapping mode.  All valid values correspond to WebGL enums.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>10497</code></li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>33071</code> CLAMP_TO_EDGE</li>
+<li><code>33648</code> MIRRORED_REPEAT</li>
+<li><code>10497</code> REPEAT</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>texParameterf()</code> with pname equal to TEXTURE_WRAP_S</li>
+</ul>
+<h3 id="samplerwrapt">sampler.wrapT</h3>
+<p>T (V) wrapping mode.  All valid values correspond to WebGL enums.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>10497</code></li>
+<li><strong>Allowed values</strong>:
+<ul>
+<li><code>33071</code> CLAMP_TO_EDGE</li>
+<li><code>33648</code> MIRRORED_REPEAT</li>
+<li><code>10497</code> REPEAT</li>
+</ul>
+</li>
+<li><strong>Related WebGL functions</strong>: <code>texParameterf()</code> with pname equal to TEXTURE_WRAP_T</li>
+</ul>
+<h3 id="samplername"><a href="http://sampler.name">sampler.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="samplerextensions">sampler.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="samplerextras">sampler.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-scene"></a></p>
+<h2 id="scene">Scene</h2>
+<p>The root nodes of a scene.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>nodes</strong></td>
+<td><code>integer</code> <code>[1-*]</code></td>
+<td>The indices of each root node.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="scenenodes">scene.nodes</h3>
+<p>The indices of each root node.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code> <code>[1-*]</code>
+<ul>
+<li>Each element in the array must be unique.</li>
+<li>Each element in the array must be greater than or equal to <code>0</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="scenename"><a href="http://scene.name">scene.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="sceneextensions">scene.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="sceneextras">scene.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-skin"></a></p>
+<h2 id="skin">Skin</h2>
+<p>Joints and matrices defining a skin.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>inverseBindMatrices</strong></td>
+<td><code>integer</code></td>
+<td>The index of the accessor containing the floating-point 4x4 inverse-bind matrices.  The default is that each matrix is a 4x4 identity matrix, which implies that inverse-bind matrices were pre-applied.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>skeleton</strong></td>
+<td><code>integer</code></td>
+<td>The index of the node used as a skeleton root. When undefined, joints transforms resolve to scene root.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>joints</strong></td>
+<td><code>integer</code> <code>[1-*]</code></td>
+<td>Indices of skeleton nodes, used as joints in this skin.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="skininversebindmatrices">skin.inverseBindMatrices</h3>
+<p>The index of the accessor containing the floating-point 4x4 inverse-bind matrices.  The default is that each matrix is a 4x4 identity matrix, which implies that inverse-bind matrices were pre-applied.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="skinskeleton">skin.skeleton</h3>
+<p>The index of the node used as a skeleton root. When undefined, joints transforms resolve to scene root.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="skinjoints-whitecheckmark">skin.joints :white_check_mark:</h3>
+<p>Indices of skeleton nodes, used as joints in this skin.  The array length must be the same as the <code>count</code> property of the <code>inverseBindMatrices</code> accessor (when defined).</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code> <code>[1-*]</code>
+<ul>
+<li>Each element in the array must be unique.</li>
+<li>Each element in the array must be greater than or equal to <code>0</code>.</li>
+</ul>
+</li>
+<li><strong>Required</strong>: Yes</li>
+</ul>
+<h3 id="skinname"><a href="http://skin.name">skin.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="skinextensions">skin.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="skinextras">skin.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-texture"></a></p>
+<h2 id="texture">Texture</h2>
+<p>A texture and its sampler.</p>
+<p><strong>Related WebGL functions</strong>: <code>createTexture()</code>, <code>deleteTexture()</code>, <code>bindTexture()</code>, <code>texImage2D()</code>, and <code>texParameterf()</code></p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>sampler</strong></td>
+<td><code>integer</code></td>
+<td>The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering should be used.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>source</strong></td>
+<td><code>integer</code></td>
+<td>The index of the image used by this texture.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><code>string</code></td>
+<td>The user-defined name of this object.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="texturesampler">texture.sampler</h3>
+<p>The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering should be used.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="texturesource">texture.source</h3>
+<p>The index of the image used by this texture.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="texturename"><a href="http://texture.name">texture.name</a></h3>
+<p>The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.</p>
+<ul>
+<li><strong>Type</strong>: <code>string</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<h3 id="textureextensions">texture.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="textureextras">texture.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+<hr>
+<p><a name="reference-texture-info"></a></p>
+<h2 id="texture-info">Texture Info</h2>
+<p>Reference to a texture.</p>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>index</strong></td>
+<td><code>integer</code></td>
+<td>The index of the texture.</td>
+<td>:white_check_mark: Yes</td>
+</tr>
+<tr>
+<td><strong>texCoord</strong></td>
+<td><code>integer</code></td>
+<td>The set index of texture's TEXCOORD attribute used for texture coordinate mapping.</td>
+<td>No, default: <code>0</code></td>
+</tr>
+<tr>
+<td><strong>extensions</strong></td>
+<td><code>object</code></td>
+<td>Dictionary object with extension-specific objects.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>extras</strong></td>
+<td><code>any</code></td>
+<td>Application-specific data.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties are allowed.</p>
+<h3 id="textureinfoindex-whitecheckmark">texture.info.index :white_check_mark:</h3>
+<p>The index of the texture.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: Yes</li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="textureinfotexcoord">texture.info.texCoord</h3>
+<p>This integer value is used to construct a string in the format <code>TEXCOORD_&lt;set index&gt;</code> which is a reference to a key in mesh.primitives.attributes (e.g. A value of <code>0</code> corresponds to <code>TEXCOORD_0</code>). Mesh must have corresponding texture coordinate attributes for the material to be applicable to it.</p>
+<ul>
+<li><strong>Type</strong>: <code>integer</code></li>
+<li><strong>Required</strong>: No, default: <code>0</code></li>
+<li><strong>Minimum</strong>: <code>&gt;= 0</code></li>
+</ul>
+<h3 id="textureinfoextensions">texture.info.extensions</h3>
+<p>Dictionary object with extension-specific objects.</p>
+<ul>
+<li><strong>Type</strong>: <code>object</code></li>
+<li><strong>Required</strong>: No</li>
+<li><strong>Type of each property</strong>: Extension</li>
+</ul>
+<h3 id="textureinfoextras">texture.info.extras</h3>
+<p>Application-specific data.</p>
+<ul>
+<li><strong>Type</strong>: <code>any</code></li>
+<li><strong>Required</strong>: No</li>
+</ul>
+
+    </body>
+    </html>

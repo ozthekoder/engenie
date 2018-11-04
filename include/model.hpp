@@ -8,6 +8,7 @@
 #include <iostream>
 #include "stb_image.h"
 #include "asset.hpp"
+#include "image.hpp"
 #include <nlohmann/json.hpp>
 using Json = nlohmann::json;
 
@@ -91,20 +92,6 @@ struct Buffer
   Json extras;
 
   bool operator==(const Buffer &) const;
-};
-
-struct Image
-{
-  std::string name;
-  int width;
-  int height;
-  int component;
-  std::vector<unsigned char> data;
-  std::string mimeType;
-  std::string uri;
-  Json extras;
-
-  bool operator==(const Image &) const;
 };
 
 class Model : public Asset
