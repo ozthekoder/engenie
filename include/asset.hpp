@@ -1,8 +1,13 @@
 #ifndef ASSET_H
 #define ASSET_H
 #pragma once
-const char pathSeparator = '/';
+
 #include <string>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+const char pathSeparator = '/';
 
 namespace Engenie
 {

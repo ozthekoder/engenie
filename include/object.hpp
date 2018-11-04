@@ -13,6 +13,7 @@ namespace Engenie
 class Object : public Entity
 {
 public:
+  std::shared_ptr<Model> model;
   Object() : Entity() {}
   Object(Json data) : Entity(data) {}
 
