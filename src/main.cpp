@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "engine.hpp"
-
+#include <glsl_ast.h>
 using namespace Engenie;
 
 int main(int argc, char *argv[])

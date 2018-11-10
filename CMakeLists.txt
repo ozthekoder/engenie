@@ -41,13 +41,14 @@ if(NOT MSVC)
 endif()
 
 file(GLOB PROJECT_SOURCES src/*.cpp)
-include_directories(include vendor/glad/include)
+
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/json)
 add_subdirectory(vendor/sfml)
+add_subdirectory(vendor/glsl_parser)
 add_definitions(-DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
 find_package(SFML 2.5 COMPONENTS graphics audio system window network REQUIRED)
-
+include_directories(include vendor/glad/include vendor/glsl_parser/include)
 #add_library(glad vendor/glad/src/glad.c)
 #target_include_directories(glad PRIVATE vendor/glad/include)
 
@@ -55,7 +56,7 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} vendor/glad/src/glad.c)
 
 #add_executable(test test/main.cpp)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
-target_link_libraries(Engenie ${GLAD_LIBRARIES} gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+target_link_libraries(Engenie ${GLAD_LIBRARIES} glsl_parser gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 
 #target_link_libraries(test gtest gmock_main)
 #add_test(NAME example_test COMMAND test)

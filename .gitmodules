@@ -10,3 +10,6 @@
 [submodule "vendor/glad"]
 	path = vendor/glad
 	url = https://github.com/Dav1dde/glad.git
+[submodule "vendor/glsl_parser"]
+	path = vendor/glsl_parser
+	url = https://github.com/ozthekoder/glsl-parser

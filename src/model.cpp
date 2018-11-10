@@ -22,7 +22,8 @@ void Model::loadBuffers()
         std::string uri = bfr["uri"];
         if (isDataURI(uri))
         {
-            decodeDataURI(buffer.data, std::string(""), uri, 0);
+            std::string dummy = std::string("");
+            decodeDataURI(buffer.data, dummy, uri, 0);
         }
         buffer.byteLength = bfr["byteLength"];
         std::string fullPath = directory + uri;
