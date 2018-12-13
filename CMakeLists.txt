@@ -47,14 +47,9 @@ add_subdirectory(vendor/json)
 add_subdirectory(vendor/sfml)
 add_definitions(-DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
 find_package(SFML 2.5 COMPONENTS graphics audio system window network REQUIRED)
-#add_library(glad vendor/glad/src/glad.c)
-#target_include_directories(glad PRIVATE vendor/glad/include)
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} vendor/glad/src/glad.c)
+include_directories(include vendor/glad/include)
 
-#add_executable(test test/main.cpp)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
-target_link_libraries(Engenie ${GLAD_LIBRARIES} gtest_main nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
-
-#target_link_libraries(test gtest gmock_main)
-#add_test(NAME example_test COMMAND test)
+target_link_libraries(Engenie ${GLAD_LIBRARIES} nlohmann_json::nlohmann_json glm sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
