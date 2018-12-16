@@ -11,6 +11,73 @@
 #include "image.hpp"
 using Json = nlohmann::json;
 
+namespace Engenie
+{
+
+enum ComponentType
+{
+    BYTE = 5120,
+    UNSIGNED_BYTE = 5121,
+    SHORT = 5122,
+    UNSIGNED_SHORT = 5123,
+    UNSIGNED_INT = 5125,
+    FLOAT = 5126
+};
+
+enum TypeSize
+{
+    NONE = 0,
+    SCALAR = 1,
+    VEC2 = 2,
+    VEC3 = 3,
+    VEC4 = 4,
+    MAT2 = 4,
+    MAT3 = 9,
+    MAT4 = 16
+};
+
+enum AttributeType
+{
+    INDEX = 0,
+    POSITION = 1,
+    NORMAL = 2,
+    TANGENT = 3,
+    TEXCOORD_0 = 4,
+    TEXCOORD_1 = 5,
+    COLOR_0 = 6,
+    JOINTS_0 = 7,
+    WEIGHTS_0 = 8,
+};
+
+enum GPUTarget
+{
+    ARRAY_BUFFER = 34962,
+    ELEMENT_ARRAY_BUFFER = 34963,
+};
+
+struct Buffer
+{
+    std::string name;
+    std::vector<unsigned char> data;
+    std::string uri;
+    size_t byteLength;
+    Json extras;
+
+    bool operator==(const Buffer &) const;
+};
+
+struct VertexAttribute
+{
+    std::string name = "";
+    std::string type = "SCALAR";
+    AttributeType attributeType;
+    ComponentType componentType;
+    bool normalized = false;
+    size_t count;
+    size_t max;
+    size_t min;
+};
+
 static const std::string base64_chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
@@ -21,10 +88,7 @@ static inline bool is_base64(unsigned char c)
     return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
-namespace Engenie
-{
-
-std::string base64Encode(unsigned char const *bytes_to_encode, unsigned int in_len)
+static std::string base64Encode(unsigned char const *bytes_to_encode, unsigned int in_len)
 {
     std::string ret;
     int i = 0;
@@ -68,7 +132,7 @@ std::string base64Encode(unsigned char const *bytes_to_encode, unsigned int in_l
     return ret;
 }
 
-std::string base64Decode(std::string const &encoded_string)
+static std::string base64Decode(std::string const &encoded_string)
 {
     int in_len = encoded_string.size();
     int i = 0;
@@ -115,107 +179,7 @@ std::string base64Decode(std::string const &encoded_string)
     return ret;
 }
 
-enum ComponentType
-{
-    BYTE = 5120,
-    UNSIGNED_BYTE = 5121,
-    SHORT = 5122,
-    UNSIGNED_SHORT = 5123,
-    UNSIGNED_INT = 5125,
-    FLOAT = 5126
-};
-
-enum TypeSize
-{
-    NONE = 0,
-    SCALAR = 1,
-    VEC2 = 2,
-    VEC3 = 3,
-    VEC4 = 4,
-    MAT2 = 4,
-    MAT3 = 9,
-    MAT4 = 16
-};
-
-enum AttributeType
-{
-    INDEX = 0,
-    POSITION = 1,
-    NORMAL = 2,
-    TANGENT = 3,
-    TEXCOORD_0 = 4,
-    TEXCOORD_1 = 5,
-    COLOR_0 = 6,
-    JOINTS_0 = 7,
-    WEIGHTS_0 = 8,
-};
-
-enum GPUTarget
-{
-    ARRAY_BUFFER = 34962,
-    ELEMENT_ARRAY_BUFFER = 34963,
-};
-
-static TypeSize get_type_size(std::string const &typeName)
-{
-    if (typeName == "SCALAR")
-    {
-        return TypeSize::SCALAR;
-    }
-    else if (typeName == "VEC2")
-    {
-        return TypeSize::VEC2;
-    }
-    else if (typeName == "VEC3")
-    {
-        return TypeSize::VEC3;
-    }
-    else if (typeName == "VEC4")
-    {
-        return TypeSize::VEC4;
-    }
-    else if (typeName == "MAT2")
-    {
-        return TypeSize::MAT2;
-    }
-    else if (typeName == "MAT3")
-    {
-        return TypeSize::MAT3;
-    }
-    else if (typeName == "MAT4")
-    {
-        return TypeSize::MAT4;
-    }
-    else
-    {
-        return TypeSize::NONE;
-    }
-}
-
-struct Buffer
-{
-    std::string name;
-    std::vector<unsigned char> data;
-    std::string uri;
-    size_t byteLength;
-    Json extras;
-
-    bool operator==(const Buffer &) const;
-};
-
-struct VertexAttribute
-{
-    std::string name = "";
-    std::string type = "SCALAR";
-    AttributeType attributeType;
-    ComponentType componentType;
-    bool normalized = false;
-    size_t count;
-    size_t max;
-    size_t min;
-};
-
-bool isDataURI(const std::string &in)
+static bool isDataURI(const std::string &in)
 {
     std::string header = "data:application/octet-stream;base64,";
     if (in.find(header) == 0)
@@ -262,7 +226,7 @@ bool isDataURI(const std::string &in)
     return false;
 }
 
-void decodeDataURI(std::vector<unsigned char> &buf, std::string &mime_type, const std::string &in, size_t reqBytes)
+static void decodeDataURI(std::vector<unsigned char> &buf, std::string &mime_type, const std::string &in, size_t reqBytes)
 {
     std::string header = "data:application/octet-stream;base64,";
     std::string data;
@@ -333,7 +297,43 @@ void decodeDataURI(std::vector<unsigned char> &buf, std::string &mime_type, cons
     std::copy(data.begin(), data.end(), buf.begin());
 }
 
-std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
+static TypeSize get_type_size(std::string const &typeName)
+{
+    if (typeName == "SCALAR")
+    {
+        return TypeSize::SCALAR;
+    }
+    else if (typeName == "VEC2")
+    {
+        return TypeSize::VEC2;
+    }
+    else if (typeName == "VEC3")
+    {
+        return TypeSize::VEC3;
+    }
+    else if (typeName == "VEC4")
+    {
+        return TypeSize::VEC4;
+    }
+    else if (typeName == "MAT2")
+    {
+        return TypeSize::MAT2;
+    }
+    else if (typeName == "MAT3")
+    {
+        return TypeSize::MAT3;
+    }
+    else if (typeName == "MAT4")
+    {
+        return TypeSize::MAT4;
+    }
+    else
+    {
+        return TypeSize::NONE;
+    }
+}
+
+static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
 {
     Json bffrs = gltf["buffers"];
     std::vector<Buffer> buffers;
@@ -373,7 +373,7 @@ std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
     return buffers;
 }
 
-std::vector<Image> loadTextureData(std::string directory, Json &gltf)
+static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
 {
     Json imgs = gltf["images"];
     std::vector<Image> images;
@@ -387,10 +387,7 @@ std::vector<Image> loadTextureData(std::string directory, Json &gltf)
             decodeDataURI(image.data, image.mimeType, uri, 0);
         }
         std::string fullPath = directory + uri;
-        unsigned char *data = stbi_load(fullPath.c_str(), &image.width, &image.height, &image.component, STBI_rgb_alpha);
-        size_t sz = image.width * image.height * image.component;
-        image.data.resize(sz);
-        std::copy(data, data + sz, image.data.begin());
+        image.load(fullPath);
         images.push_back(image);
     }
 

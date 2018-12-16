@@ -6,8 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <iostream>
-#include "stb_image.h"
 #include "gltf.h"
+
 #include "asset.hpp"
 #include "image.hpp"
 #include "mesh.hpp"
