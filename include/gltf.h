@@ -9,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 #include "image.hpp"
+#include "material.hpp"
+
 using Json = nlohmann::json;
 
 namespace Engenie
@@ -68,14 +70,26 @@ struct Buffer
 
 struct VertexAttribute
 {
-    std::string name = "";
+    std::shared_ptr<Buffer> buffer;
     std::string type = "SCALAR";
     AttributeType attributeType;
     ComponentType componentType;
     bool normalized = false;
     size_t count;
-    size_t max;
-    size_t min;
+    size_t offset;
+    size_t length;
+    size_t stride;
+    GPUTarget target;
+    std::string name = "";
+    bool operator==(const VertexAttribute &) const;
+};
+
+struct Mesh
+{
+    std::string name;
+    std::shared_ptr<Material> material;
+    std::vector<VertexAttribute> attributes;
+    size_t mode;
 };
 
 static const std::string base64_chars =
@@ -333,6 +347,46 @@ static TypeSize get_type_size(std::string const &typeName)
     }
 }
 
+static AttributeType get_attribute_type(std::string const &typeName)
+{
+    if (typeName == "POSITION")
+    {
+        return AttributeType::POSITION;
+    }
+    else if (typeName == "NORMAL")
+    {
+        return AttributeType::NORMAL;
+    }
+    else if (typeName == "TANGENT")
+    {
+        return AttributeType::TANGENT;
+    }
+    else if (typeName == "TEXCOORD_0")
+    {
+        return AttributeType::TEXCOORD_0;
+    }
+    else if (typeName == "TEXCOORD_1")
+    {
+        return AttributeType::TEXCOORD_1;
+    }
+    else if (typeName == "COLOR_0")
+    {
+        return AttributeType::COLOR_0;
+    }
+    else if (typeName == "JOINTS_0")
+    {
+        return AttributeType::JOINTS_0;
+    }
+    else if (typeName == "WEIGHTS_0")
+    {
+        return AttributeType::WEIGHTS_0;
+    }
+    else
+    {
+        return AttributeType::INDEX;
+    }
+}
+
 static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
 {
     Json bffrs = gltf["buffers"];
@@ -393,6 +447,8 @@ static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
 
     return images;
 }
+
+static std::vector<Mesh> parseNode(Json node) {}
 
 }; // namespace Engenie
 

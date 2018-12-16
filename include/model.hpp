@@ -10,7 +10,6 @@
 
 #include "asset.hpp"
 #include "image.hpp"
-#include "mesh.hpp"
 #include <nlohmann/json.hpp>
 using Json = nlohmann::json;
 
@@ -34,8 +33,6 @@ private:
   std::vector<Buffer> buffers;
   std::vector<Image> images;
   std::vector<Mesh> meshes;
-
-  void parseNode(Json node);
 };
 
 }; // namespace Engenie
