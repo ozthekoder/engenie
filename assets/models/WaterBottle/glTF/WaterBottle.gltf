@@ -23,16 +23,8 @@
       "componentType": 5126,
       "count": 2549,
       "type": "VEC3",
-      "max": [
-        0.05445001,
-        0.130220339,
-        0.0544500239
-      ],
-      "min": [
-        -0.05445001,
-        -0.130220339,
-        -0.0544500239
-      ]
+      "max": [0.05445001, 0.130220339, 0.0544500239],
+      "min": [-0.05445001, -0.130220339, -0.0544500239]
     },
     {
       "bufferView": 4,
@@ -124,11 +116,7 @@
       "occlusionTexture": {
         "index": 1
       },
-      "emissiveFactor": [
-        1.0,
-        1.0,
-        1.0
-      ],
+      "emissiveFactor": [1.0, 1.0, 1.0],
       "emissiveTexture": {
         "index": 3
       },
@@ -138,21 +126,14 @@
   "nodes": [
     {
       "mesh": 0,
-      "rotation": [
-        0.0,
-        1.0,
-        0.0,
-        0.0
-      ],
+      "rotation": [0.0, 1.0, 0.0, 0.0],
       "name": "WaterBottle"
     }
   ],
   "scene": 0,
   "scenes": [
     {
-      "nodes": [
-        0
-      ]
+      "nodes": [0]
     }
   ],
   "textures": [

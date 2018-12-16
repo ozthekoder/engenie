@@ -14,7 +14,8 @@ namespace Engenie
 enum PBRModel
 {
     MetallicRoughness,
-    SpecularGlossiness
+    SpecularGlossiness,
+    None,
 };
 
 class Material
