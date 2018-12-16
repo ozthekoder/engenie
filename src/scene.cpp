@@ -61,16 +61,15 @@ void Scene::loadGLSL(Json glsl)
         {
             std::string path = i.value();
 
-            assets["glsl"].insert_or_assign(it.key(), new GLSL(path));
+            assets["glsl"].insert_or_assign(it.key(), new GLSL(PROJECT_SOURCE_DIR + path));
         }
     }
 }
 
-void Scene::createEntities(Json entities)
+void Scene::createEntities(Json scene)
 {
-    createLights(entities["lights"]);
-    createObjects(entities["objects"]);
-    createTexts(entities["texts"]);
+    createLights(scene["lighting"]);
+    createMapElements(scene["map"]);
 }
 
 void Scene::createLights(Json lights)
@@ -99,19 +98,19 @@ void Scene::createLights(Json lights)
     }
 }
 
-void Scene::createObjects(Json objects)
+void Scene::createMapElements(Json map)
 {
-    for (Json s : objects)
+    for (Json s : map)
     {
-        entities.push_back((new Object(s)));
-    }
-}
-
-void Scene::createTexts(Json texts)
-{
-    for (Json s : texts)
-    {
-        entities.push_back(new Text(s));
+        std::string type = s["type"];
+        if (type == std::string("object"))
+        {
+            entities.push_back((new Object(s)));
+        }
+        else if (type == std::string("text"))
+        {
+            entities.push_back(new Text(s));
+        }
     }
 }
 

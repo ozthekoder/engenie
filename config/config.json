@@ -14,7 +14,7 @@
   },
   "scenes": [
     {
-      "name": "first",
+      "name": "hello_scene",
       "viewport": {
         "near": 0.1,
         "far": 100,
@@ -23,83 +23,66 @@
       },
       "camera": 0,
       "start": true,
-      "map": {
-        "lights": {
-          "directional": {
-            "ambient": [0.05, 0.05, 0.05],
-            "direction": [-0.2, -1, -0.3],
-            "diffuse": [0.4, 0.4, 0.4],
-            "specular": [0.5, 0.5, 0.5]
-          },
-          "point": [
-            {
-              "ambient": [0.05, 0.05, 0.05],
-              "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1, 1, 1],
-              "position": [0.7, 0.2, 2],
-              "constant": 1,
-              "linear": 0.09,
-              "quadratic": 0.032
-            },
-            {
-              "ambient": [0.05, 0.05, 0.05],
-              "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1, 1, 1],
-              "position": [2.3, -3.3, -4],
-              "constant": 1,
-              "linear": 0.09,
-              "quadratic": 0.032
-            },
-            {
-              "ambient": [0.05, 0.05, 0.05],
-              "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1, 1, 1],
-              "position": [-4, 2, -12],
-              "constant": 1,
-              "linear": 0.09,
-              "quadratic": 0.032
-            },
-            {
-              "ambient": [0.05, 0.05, 0.05],
-              "diffuse": [0.8, 0.8, 0.8],
-              "specular": [1, 1, 1],
-              "position": [0, 0, -3],
-              "constant": 1,
-              "linear": 0.09,
-              "quadratic": 0.032
-            }
-          ],
-          "spot": []
+      "lighting": {
+        "directional": {
+          "ambient": [0.05, 0.05, 0.05],
+          "direction": [-0.2, -1, -0.3],
+          "diffuse": [0.4, 0.4, 0.4],
+          "specular": [0.5, 0.5, 0.5]
         },
-        "objects": [
+        "point": [
           {
-            "type": "water_bottle",
-            "position": [0, 0, 0],
-            "velocity": 0,
-            "visible": true,
-            "movable": true
+            "ambient": [0.05, 0.05, 0.05],
+            "diffuse": [0.8, 0.8, 0.8],
+            "specular": [1, 1, 1],
+            "position": [0.7, 0.2, 2],
+            "constant": 1,
+            "linear": 0.09,
+            "quadratic": 0.032
           },
           {
-            "type": "water_bottle",
-            "position": [1, 0, 0],
-            "velocity": 0,
-            "visible": true,
-            "movable": true
+            "ambient": [0.05, 0.05, 0.05],
+            "diffuse": [0.8, 0.8, 0.8],
+            "specular": [1, 1, 1],
+            "position": [2.3, -3.3, -4],
+            "constant": 1,
+            "linear": 0.09,
+            "quadratic": 0.032
           },
           {
-            "type": "water_bottle",
-            "position": [2, 0, 0],
-            "velocity": 0,
-            "visible": true,
-            "movable": true
+            "ambient": [0.05, 0.05, 0.05],
+            "diffuse": [0.8, 0.8, 0.8],
+            "specular": [1, 1, 1],
+            "position": [-4, 2, -12],
+            "constant": 1,
+            "linear": 0.09,
+            "quadratic": 0.032
+          },
+          {
+            "ambient": [0.05, 0.05, 0.05],
+            "diffuse": [0.8, 0.8, 0.8],
+            "specular": [1, 1, 1],
+            "position": [0, 0, -3],
+            "constant": 1,
+            "linear": 0.09,
+            "quadratic": 0.032
           }
         ],
-        "text": []
+        "spot": []
       },
+      "map": [
+        {
+          "type": "object",
+          "position": [0, 0, 0],
+          "velocity": 0,
+          "visible": true,
+          "movable": true
+        }
+      ],
       "assets": {
         "textures": [],
         "models": {
-          "water_bottle": "/assets/models/WaterBottle/glTF-pbrSpecularGlossiness/WaterBottle.gltf"
+          "triangle": "/assets/models/Minimal/minimal.gltf"
         },
         "fonts": {},
         "glsl": {
@@ -115,39 +98,6 @@
             "/assets/shaders/text/vertex.glsl",
             "/assets/shaders/text/fragment.glsl"
           ]
-        }
-      }
-    },
-    {
-      "name": "second",
-      "viewport": {
-        "near": 0.1,
-        "far": 100,
-        "fov": 45,
-        "projection": 1
-      },
-      "camera": 0,
-      "start": false,
-      "map": {
-        "lights": {},
-        "objects": [],
-        "text": [
-          {
-            "font": "yellowjacket_shadow",
-            "position": [100, 100, 0],
-            "color": [1, 0, 0.4],
-            "text": "Ozzy Rulez Bitch"
-          }
-        ]
-      },
-      "assets": {
-        "textures": [],
-        "models": {},
-        "fonts": {
-          "yellowjacket_shadow": "/assets/fonts/SourceSansPro-Regular.otf"
-        },
-        "shaders": {
-          "text": ["/assets/shaders/text.vert", "assets/shaders/text.frag"]
         }
       }
     }

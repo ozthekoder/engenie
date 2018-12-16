@@ -8,6 +8,10 @@
 #include <iostream>
 #include <fstream>
 #include <iostream>
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "image.hpp"
 #include "material.hpp"
 
@@ -308,6 +312,8 @@ static void decodeDataURI(std::vector<unsigned char> &buf, std::string &mime_typ
         }
     }
 
+    size_t sz = data.length();
+    buf.resize(sz);
     std::copy(data.begin(), data.end(), buf.begin());
 }
 
@@ -403,24 +409,25 @@ static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
         }
         buffer.byteLength = bfr["byteLength"];
         std::string fullPath = directory + uri;
-        std::streampos size;
-        size_t sz;
-        char *memblock;
 
         std::ifstream file(fullPath, std::ios::in | std::ios::binary | std::ios::ate);
         if (file.is_open())
         {
+            std::streampos size;
+            size_t sz;
+            char *memblock;
             size = file.tellg();
             sz = static_cast<size_t>(size);
             memblock = new char[sz];
             file.seekg(0, std::ios::beg);
             file.read(memblock, size);
             file.close();
+
+            unsigned char *data = (unsigned char *)memblock;
+            buffer.data.resize(sz);
+            std::copy(data, data + sz, buffer.data.begin());
         }
 
-        unsigned char *data = (unsigned char *)memblock;
-        buffer.data.resize(sz);
-        std::copy(data, data + sz, buffer.data.begin());
         buffers.push_back(buffer);
     }
 
@@ -448,7 +455,25 @@ static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
     return images;
 }
 
-static std::vector<Mesh> parseNode(Json node) {}
+static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transformation)
+{
+    std::vector<Mesh> meshes;
+    if (gltf["nodes"][index] != NULL)
+    {
+        Json node = gltf["nodes"][index];
+        if (node["mesh"] != NULL)
+        {
+            size_t m = node["mesh"];
+            Json mesh = gltf["meshes"][m];
+        }
+
+        if (node["children"] != NULL)
+        {
+        }
+    }
+
+    return meshes;
+}
 
 }; // namespace Engenie
 

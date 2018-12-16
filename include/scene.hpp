@@ -34,7 +34,7 @@ public:
   {
     name = scene["name"];
     loadAssets(scene["assets"]);
-    createEntities(scene["map"]);
+    createEntities(scene);
     setupViewport(scene["viewport"]);
   }
 
@@ -43,10 +43,9 @@ public:
   void loadModels(Json models);
   void loadFonts(Json fonts);
   void loadGLSL(Json glsl);
-  void createEntities(Json entities);
-  void createLights(Json lights);
-  void createObjects(Json objects);
-  void createTexts(Json texts);
+  void createEntities(Json scene);
+  void createLights(Json lighting);
+  void createMapElements(Json map);
 };
 }; // namespace Engenie
 #endif

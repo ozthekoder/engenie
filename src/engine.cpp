@@ -14,21 +14,21 @@ Engine &Engine::loadConfig(std::string const &path)
         sceneManager->addScene(sceneManager->loadScene(it.value()));
     }
 
-    createWindow(config["window"]);
-    return *this;
+    return createWindow(config["window"]);
 }
 
 Engine &Engine::createWindow(Json config)
 {
     int width = config["width"];
     int height = config["height"];
+    Json version = config["OpenGL"]["version"];
     std::string title = config["title"];
     sf::ContextSettings settings;
     settings.depthBits = 24;
     settings.stencilBits = 8;
     settings.antialiasingLevel = 4;
-    settings.majorVersion = 4;
-    settings.minorVersion = 1;
+    settings.majorVersion = version["major"];
+    settings.minorVersion = version["minor"];
 
     window = new sf::Window(sf::VideoMode(width, height), "Engenie v0.0", sf::Style::Default, settings);
     return *this;
