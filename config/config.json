@@ -82,7 +82,9 @@
       "assets": {
         "textures": [],
         "models": {
-          "triangle": "/assets/models/Minimal/minimal.gltf"
+          "triangle": "/assets/models/Minimal/minimal.gltf",
+          "monster": "/assets/models/Monster/glTF/Monster.gltf",
+          "floor": "/assets/models/TwoSidedPlane/glTF/TwoSidedPlane.gltf"
         },
         "fonts": {},
         "glsl": {

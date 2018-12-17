@@ -4,14 +4,15 @@
 
 #include <string>
 #include <vector>
-#include <nlohmann/json.hpp>
 #include <iostream>
 #include <fstream>
-#include <iostream>
+#include <iterator>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <nlohmann/json.hpp>
 #include "image.hpp"
 #include "material.hpp"
 
@@ -93,6 +94,7 @@ struct Mesh
     std::string name;
     std::shared_ptr<Material> material;
     std::vector<VertexAttribute> attributes;
+    glm::mat4 transformation;
     size_t mode;
 };
 
@@ -458,23 +460,85 @@ static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
 static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transformation)
 {
     std::vector<Mesh> meshes;
-    if (gltf["nodes"][index] != NULL)
+    glm::mat4 trans = transformation;
+    try
     {
-        Json node = gltf["nodes"][index];
-        if (node["mesh"] != NULL)
+        Json node = gltf["nodes"].at(index);
+
+        if (node.value("matrix", false))
+        {
+            Json m = node["matrix"];
+            trans = trans * glm::mat4(
+                                m[0].get<float>(),
+                                m[1].get<float>(),
+                                m[2].get<float>(),
+                                m[3].get<float>(),
+                                m[4].get<float>(),
+                                m[5].get<float>(),
+                                m[6].get<float>(),
+                                m[7].get<float>(),
+                                m[8].get<float>(),
+                                m[9].get<float>(),
+                                m[10].get<float>(),
+                                m[11].get<float>(),
+                                m[12].get<float>(),
+                                m[13].get<float>(),
+                                m[14].get<float>(),
+                                m[15].get<float>());
+        }
+        else
+        {
+            glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
+            glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
+            glm::quat rotation = glm::quat(0.0f, 0.0f, 0.0f, 1.0f);
+
+            if (node.value("scale", false))
+            {
+                Json s = node["scale"];
+                scale = glm::vec3(s[0].get<float>(), s[1].get<float>(), s[2].get<float>());
+                trans = glm::scale(trans, scale);
+            }
+
+            if (node.value("rotation", false))
+            {
+                Json s = node["rotation"];
+                rotation = glm::quat(s[0].get<float>(), s[1].get<float>(), s[2].get<float>(), s[3].get<float>());
+                trans = trans * glm::mat4_cast(rotation);
+            }
+
+            if (node.value("translation", false))
+            {
+                Json t = node["translation"];
+                translation = glm::vec3(t[0].get<float>(), t[1].get<float>(), t[2].get<float>());
+                trans = glm::translate(trans, translation);
+            }
+        }
+
+        if (node.value("mesh", -1) >= 0)
         {
             size_t m = node["mesh"];
             Json mesh = gltf["meshes"][m];
         }
 
-        if (node["children"] != NULL)
+        if (node.value("children", false))
         {
+            for (size_t i : node["children"])
+            {
+                std::vector<Mesh> childrenMeshes = parseNode(gltf, i, trans);
+
+                meshes.insert(
+                    meshes.end(),
+                    std::make_move_iterator(childrenMeshes.begin()),
+                    std::make_move_iterator(childrenMeshes.end()));
+            }
         }
     }
-
+    catch (nlohmann::json::out_of_range &e)
+    {
+        std::cout << e.what() << '\n';
+    }
     return meshes;
-}
-
+} // namespace Engenie
 }; // namespace Engenie
 
 #endif
