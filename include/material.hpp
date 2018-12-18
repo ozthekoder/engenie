@@ -22,12 +22,62 @@ enum PBRModel
     None,
 };
 
+enum AlphaMode
+{
+    OPAQUE,
+    MASK,
+    BLEND,
+};
+
+struct TextureInfo
+{
+    size_t index = -1;
+    size_t texCoord = 0;
+    Json extras;
+};
+
+struct NormalTextureInfo : TextureInfo
+{
+    float scale = 1.0f;
+};
+
+struct OcclusionTextureInfo : TextureInfo
+{
+    float strength = 1.0f;
+};
+
 class Material
 {
   public:
     std::string name;
     PBRModel pbrModel;
-    Material(){};
+
+    glm::vec4 baseColorFactor;
+    glm::vec3 emmisiveFactor;
+
+    float metallicFactor;
+    float roughnessFactor;
+
+    TextureInfo baseColorTexture;
+    TextureInfo metallicRoughnessTexture;
+    TextureInfo emissiveTexture;
+
+    NormalTextureInfo normalTexture;
+    OcclusionTextureInfo occlusionTexture;
+
+    AlphaMode alphaMode;
+    float alphaCutoff;
+
+    bool doubleSided;
+
+    Material()
+    {
+        name = std::string("default");
+        pbrModel = PBRModel::MetallicRoughness;
+        baseColorFactor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+        metallicFactor = 1.0f;
+        roughnessFactor = 1.0;
+    };
     Material(Json props){
 
     };
