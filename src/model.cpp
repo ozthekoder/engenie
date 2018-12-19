@@ -10,7 +10,23 @@ void Model::loadFromFile(std::string const &filePath)
     buffers = loadGeometryData(directory, gltf);
     images = loadTextureData(directory, gltf);
     glm::mat4 transformation = glm::mat4(1.0f);
-    meshes = parseNode(gltf, 0, transformation);
+    try
+    {
+        std::vector<Mesh> nodeMeshes;
+        Json nodes = gltf["scenes"][gltf["scene"].get<size_t>()];
+        for (auto node : nodes)
+        {
+            nodeMeshes = parseNode(gltf, node, transformation);
+            meshes.insert(
+                meshes.end(),
+                std::make_move_iterator(nodeMeshes.begin()),
+                std::make_move_iterator(nodeMeshes.end()));
+        }
+    }
+    catch (nlohmann::json::type_error &e)
+    {
+        std::cout << e.what() << '\n';
+    }
 }
 
 } // namespace Engenie

@@ -519,10 +519,6 @@ static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transforma
             size_t i = node["mesh"];
             Json m = gltf["meshes"][i];
             Material material;
-
-            if (m.value("material", -1) >= 0)
-            {
-            }
         }
 
         if (node.value("children", false))
