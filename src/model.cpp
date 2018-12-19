@@ -13,7 +13,8 @@ void Model::loadFromFile(std::string const &filePath)
     try
     {
         std::vector<Mesh> nodeMeshes;
-        Json nodes = gltf["scenes"][gltf["scene"].get<size_t>()];
+        size_t start = gltf.value("scene", 0);
+        Json nodes = gltf["scenes"][start]["nodes"];
         for (auto node : nodes)
         {
             nodeMeshes = parseNode(gltf, node, transformation);

@@ -17,16 +17,16 @@ namespace Engenie
 
 enum PBRModel
 {
-    MetallicRoughness,
-    SpecularGlossiness,
-    None,
+    MetallicRoughness = 1,
+    SpecularGlossiness = 2,
+    None = 0,
 };
 
 enum AlphaMode
 {
-    OPAQUE,
-    MASK,
-    BLEND,
+    Opaque = 1,
+    Mask = 2,
+    Blend = 3,
 };
 
 struct TextureInfo
@@ -80,7 +80,7 @@ class Material
         roughnessFactor = 1.0;
         emissiveFactor = glm::vec3(0.0f, 0.0f, 0.0f);
 
-        alphaMode = AlphaMode::OPAQUE;
+        alphaMode = AlphaMode::Opaque;
         alphaCutoff = 0.5f;
 
         doubleSided = false;

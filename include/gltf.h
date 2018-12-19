@@ -58,8 +58,8 @@ enum AttributeType
 
 enum GPUTarget
 {
-    ARRAY_BUFFER = 34962,
-    ELEMENT_ARRAY_BUFFER = 34963,
+    ARRAY_BUFFER = GL_ARRAY_BUFFER,
+    ELEMENT_ARRAY_BUFFER = GL_ELEMENT_ARRAY_BUFFER,
 };
 
 struct Buffer
@@ -75,17 +75,17 @@ struct Buffer
 
 struct VertexAttribute
 {
-    std::shared_ptr<Buffer> buffer;
-    std::string type = "SCALAR";
+    size_t buffer;
+    TypeSize type;
     AttributeType attributeType;
     ComponentType componentType;
     bool normalized = false;
     size_t count;
-    size_t offset;
-    size_t length;
+    size_t byteOffset;
     size_t stride;
+    size_t length;
+    size_t offset;
     GPUTarget target;
-    std::string name = "";
     bool operator==(const VertexAttribute &) const;
 };
 
@@ -457,6 +457,25 @@ static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
     return images;
 }
 
+static VertexAttribute extractAttribute(Json gltf, size_t accessorIndex)
+{
+    VertexAttribute attribute;
+
+    Json accessor = gltf["accessors"][accessorIndex];
+    size_t bufferViewIndex = accessor["bufferView"];
+    Json bufferView = gltf["bufferViews"][bufferViewIndex];
+    attribute.buffer = bufferView["buffer"];
+    attribute.type = get_type_size(accessor["type"]);
+    attribute.componentType = accessor["componentType"];
+    attribute.byteOffset = accessor["byteOffset"];
+    attribute.count = accessor["count"];
+    attribute.length = bufferView["byteLength"];
+    attribute.offset = bufferView["byteOffset"];
+    attribute.target = bufferView["target"];
+
+    return attribute;
+}
+
 static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transformation)
 {
     std::vector<Mesh> meshes;
@@ -518,7 +537,27 @@ static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transforma
         {
             size_t i = node["mesh"];
             Json m = gltf["meshes"][i];
-            Material material;
+            for (auto primitive : m["primitives"])
+            {
+                std::shared_ptr<Material> material(new Material());
+                Mesh mesh;
+                mesh.material = material;
+                if (primitive.value("indices", -1) >= 0)
+                {
+                    VertexAttribute attribute = extractAttribute(gltf, primitive["indices"]);
+                    attribute.attributeType = AttributeType::INDEX;
+                    mesh.attributes.push_back(attribute);
+                }
+
+                for (auto it = primitive["attributes"].begin(); it != primitive["attributes"].end(); ++it)
+                {
+                    VertexAttribute attribute = extractAttribute(gltf, it.value());
+                    attribute.attributeType = get_attribute_type(it.key());
+                    mesh.attributes.push_back(attribute);
+                }
+
+                meshes.push_back(mesh);
+            }
         }
 
         if (node.value("children", false))

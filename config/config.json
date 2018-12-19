@@ -73,6 +73,7 @@
       "map": [
         {
           "type": "object",
+          "asset": "triangle",
           "position": [0, 0, 0],
           "velocity": 0,
           "visible": true,

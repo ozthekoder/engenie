@@ -14,15 +14,15 @@ Engine &Engine::loadConfig(std::string const &path)
         sceneManager->addScene(sceneManager->loadScene(it.value()));
     }
 
-    return createWindow(config["window"]);
+    return createWindow(config);
 }
 
 Engine &Engine::createWindow(Json config)
 {
-    int width = config["width"];
-    int height = config["height"];
+    int width = config["window"]["width"];
+    int height = config["window"]["height"];
     Json version = config["OpenGL"]["version"];
-    std::string title = config["title"];
+    std::string title = config["window"]["title"];
     sf::ContextSettings settings;
     settings.depthBits = 24;
     settings.stencilBits = 8;
