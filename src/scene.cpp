@@ -16,7 +16,6 @@ void Scene::loadAssets(Json asts)
     for (Json::iterator it = asts.begin(); it != asts.end(); ++it)
     {
         std::string assetType = it.key();
-        assets.insert_or_assign(assetType, std::unordered_map<std::string, Asset *>());
 
         Json assetsOfType = it.value();
         if (assetType == "models")
@@ -27,42 +26,24 @@ void Scene::loadAssets(Json asts)
         {
             loadFonts(assetsOfType);
         }
-        else
-        {
-            loadGLSL(assetsOfType);
-        }
     }
 }
 
-void Scene::loadModels(Json models)
+void Scene::loadModels(Json mdls)
 {
-    for (Json::iterator it = models.begin(); it != models.end(); ++it)
+    for (Json::iterator it = mdls.begin(); it != mdls.end(); ++it)
     {
         std::string path = it.value();
-        assets["models"].insert_or_assign(it.key(), new Model(PROJECT_SOURCE_DIR + path));
+        models.insert_or_assign(it.key(), std::make_shared<Model>(PROJECT_SOURCE_DIR + path));
     }
 }
 
-void Scene::loadFonts(Json fonts)
+void Scene::loadFonts(Json fnts)
 {
-    for (Json::iterator it = fonts.begin(); it != fonts.end(); ++it)
+    for (Json::iterator it = fnts.begin(); it != fnts.end(); ++it)
     {
         std::string path = it.value();
-        assets["fonts"].insert_or_assign(it.key(), new Font(PROJECT_SOURCE_DIR + path));
-    }
-}
-
-void Scene::loadGLSL(Json glsl)
-{
-    for (Json::iterator it = glsl.begin(); it != glsl.end(); ++it)
-    {
-        Json files = it.value();
-        for (Json::iterator i = files.begin(); i != files.end(); ++i)
-        {
-            std::string path = i.value();
-
-            assets["glsl"].insert_or_assign(it.key(), new GLSL(PROJECT_SOURCE_DIR + path));
-        }
+        fonts.insert_or_assign(it.key(), std::make_shared<Font>(PROJECT_SOURCE_DIR + path));
     }
 }
 
@@ -105,7 +86,11 @@ void Scene::createMapElements(Json map)
         std::string type = s["type"];
         if (type == std::string("object"))
         {
-            entities.push_back((new Object(s)));
+            Object *obj = new Object();
+            std::string asset = s["asset"];
+            obj->model = models[asset];
+
+            entities.push_back((obj));
         }
         else if (type == std::string("text"))
         {

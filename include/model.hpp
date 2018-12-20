@@ -27,6 +27,7 @@ public:
   }
 
   void loadFromFile(std::string const &filePath);
+  void bufferData();
 
 private:
   Json gltf;

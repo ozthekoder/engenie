@@ -23,7 +23,9 @@ class Scene
 {
 public:
   std::string name;
-  std::unordered_map<std::string, std::unordered_map<std::string, Asset *>> assets;
+  std::unordered_map<std::string, std::shared_ptr<Model>> models;
+  std::unordered_map<std::string, std::shared_ptr<Font>> fonts;
+  std::unordered_map<std::string, std::shared_ptr<GLSL>> shaders;
   std::vector<PointLight> pointLights;
   std::vector<Entity *> entities;
   DirectionalLight directionalLight;
@@ -42,7 +44,6 @@ public:
   void loadAssets(Json assets);
   void loadModels(Json models);
   void loadFonts(Json fonts);
-  void loadGLSL(Json glsl);
   void createEntities(Json scene);
   void createLights(Json lighting);
   void createMapElements(Json map);

@@ -18,6 +18,7 @@ public:
   Object(Json data) : Entity(data) {}
 
   void draw(Shader const &shader) {}
+  void prepare() {}
 };
 }; // namespace Engenie
 
