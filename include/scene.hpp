@@ -25,7 +25,6 @@ public:
   std::string name;
   std::unordered_map<std::string, std::shared_ptr<Model>> models;
   std::unordered_map<std::string, std::shared_ptr<Font>> fonts;
-  std::unordered_map<std::string, std::shared_ptr<GLSL>> shaders;
   std::vector<PointLight> pointLights;
   std::vector<Entity *> entities;
   DirectionalLight directionalLight;

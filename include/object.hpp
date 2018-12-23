@@ -18,7 +18,12 @@ public:
   Object(Json data) : Entity(data) {}
 
   void draw(Shader const &shader) {}
-  void prepare() {}
+  void prepare()
+  {
+    for (Mesh mesh : model->meshes)
+    {
+    }
+  }
 };
 }; // namespace Engenie
 

@@ -64,28 +64,25 @@ enum GPUTarget
 
 struct Buffer
 {
-    std::string name;
     std::vector<unsigned char> data;
-    std::string uri;
     size_t byteLength;
-    Json extras;
+    size_t byteOffset;
+    GPUTarget target;
 
     bool operator==(const Buffer &) const;
 };
 
 struct VertexAttribute
 {
-    size_t buffer;
-    TypeSize type;
-    AttributeType attributeType;
-    ComponentType componentType;
+    size_t buffer = 0;
+    TypeSize type = TypeSize::NONE;
+    AttributeType attributeType = AttributeType::INDEX;
+    ComponentType componentType = ComponentType::BYTE;
     bool normalized = false;
-    size_t count;
-    size_t byteOffset;
-    size_t stride;
-    size_t length;
-    size_t offset;
-    GPUTarget target;
+    size_t count = 0;
+    size_t byteOffset = 0;
+    size_t stride = 0;
+
     bool operator==(const VertexAttribute &) const;
 };
 
@@ -398,21 +395,28 @@ static AttributeType get_attribute_type(std::string const &typeName)
 static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
 {
     Json bffrs = gltf["buffers"];
+    Json bufferViews = gltf["bufferViews"];
     std::vector<Buffer> buffers;
+    std::vector<std::vector<unsigned char>> chunks;
+
     for (auto it = bffrs.begin(); it != bffrs.end(); ++it)
     {
         Json bfr = it.value();
-        Buffer buffer;
         std::string uri = bfr["uri"];
+        std::vector<unsigned char> data;
+
         if (isDataURI(uri))
         {
             std::string dummy = std::string("");
-            decodeDataURI(buffer.data, dummy, uri, 0);
+            decodeDataURI(data, dummy, uri, 0);
         }
-        buffer.byteLength = bfr["byteLength"];
+
+        size_t totalLength = bfr["byteLength"];
+
         std::string fullPath = directory + uri;
 
         std::ifstream file(fullPath, std::ios::in | std::ios::binary | std::ios::ate);
+
         if (file.is_open())
         {
             std::streampos size;
@@ -425,12 +429,24 @@ static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
             file.read(memblock, size);
             file.close();
 
-            unsigned char *data = (unsigned char *)memblock;
-            buffer.data.resize(sz);
-            std::copy(data, data + sz, buffer.data.begin());
+            unsigned char *dt = (unsigned char *)memblock;
+            data.resize(sz);
+            std::copy(dt, dt + sz, data.begin());
         }
 
-        buffers.push_back(buffer);
+        chunks.push_back(data);
+    }
+
+    for (auto it = bufferViews.begin(); it != bufferViews.end(); ++it)
+    {
+        Json bufferView = it.value();
+        size_t byteOffset = bufferView["byteOffset"].get<size_t>();
+        size_t byteLength = bufferView["byteLength"].get<size_t>();
+        GPUTarget target = bufferView["target"].get<GPUTarget>();
+        std::vector<unsigned char>::const_iterator start = chunks[bufferView["buffer"].get<size_t>()].begin() + byteOffset;
+        std::vector<unsigned char>::const_iterator end = start + byteLength;
+        std::vector<unsigned char> data(start, end);
+        buffers.push_back({data, byteLength, byteOffset, target});
     }
 
     return buffers;
@@ -457,23 +473,15 @@ static std::vector<Image> loadTextureData(std::string directory, Json &gltf)
     return images;
 }
 
-static VertexAttribute extractAttribute(Json gltf, size_t accessorIndex)
+static void extractAttribute(Json gltf, size_t accessorIndex, VertexAttribute &attribute)
 {
-    VertexAttribute attribute;
-
     Json accessor = gltf["accessors"][accessorIndex];
-    size_t bufferViewIndex = accessor["bufferView"];
-    Json bufferView = gltf["bufferViews"][bufferViewIndex];
-    attribute.buffer = bufferView["buffer"];
+    size_t buffer = accessor["bufferView"];
+    attribute.buffer = buffer;
     attribute.type = get_type_size(accessor["type"]);
     attribute.componentType = accessor["componentType"];
     attribute.byteOffset = accessor["byteOffset"];
     attribute.count = accessor["count"];
-    attribute.length = bufferView["byteLength"];
-    attribute.offset = bufferView["byteOffset"];
-    attribute.target = bufferView["target"];
-
-    return attribute;
 }
 
 static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transformation)
@@ -544,18 +552,23 @@ static std::vector<Mesh> parseNode(Json gltf, size_t index, glm::mat4 transforma
                 mesh.material = material;
                 if (primitive.value("indices", -1) >= 0)
                 {
-                    VertexAttribute attribute = extractAttribute(gltf, primitive["indices"]);
+                    VertexAttribute attribute;
                     attribute.attributeType = AttributeType::INDEX;
+                    extractAttribute(gltf, primitive["indices"], attribute);
+
                     mesh.attributes.push_back(attribute);
                 }
 
                 for (auto it = primitive["attributes"].begin(); it != primitive["attributes"].end(); ++it)
                 {
-                    VertexAttribute attribute = extractAttribute(gltf, it.value());
+                    VertexAttribute attribute;
                     attribute.attributeType = get_attribute_type(it.key());
+                    extractAttribute(gltf, it.value(), attribute);
+
                     mesh.attributes.push_back(attribute);
                 }
 
+                mesh.transformation = trans;
                 meshes.push_back(mesh);
             }
         }

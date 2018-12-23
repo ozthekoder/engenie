@@ -7,6 +7,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include "asset.hpp"
+#include "model.hpp"
 
 namespace Engenie
 {
@@ -60,6 +61,7 @@ class GLSL : public Asset
     void compile();
     void release();
 };
+
 }; // namespace Engenie
 
 #endif
