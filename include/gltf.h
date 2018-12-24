@@ -65,8 +65,6 @@ enum GPUTarget
 struct Buffer
 {
     std::vector<unsigned char> data;
-    size_t byteLength;
-    size_t byteOffset;
     GPUTarget target;
 
     bool operator==(const Buffer &) const;
@@ -446,7 +444,7 @@ static std::vector<Buffer> loadGeometryData(std::string directory, Json &gltf)
         std::vector<unsigned char>::const_iterator start = chunks[bufferView["buffer"].get<size_t>()].begin() + byteOffset;
         std::vector<unsigned char>::const_iterator end = start + byteLength;
         std::vector<unsigned char> data(start, end);
-        buffers.push_back({data, byteLength, byteOffset, target});
+        buffers.push_back({data, target});
     }
 
     return buffers;
