@@ -5,9 +5,13 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <glad/glad.h>
+#include "koura.hpp"
 #include "asset.hpp"
 #include "model.hpp"
+
+using namespace std::string_literals;
 
 namespace Engenie
 {
@@ -27,8 +31,9 @@ class GLSL : public Asset
 {
   public:
     ShaderType type;
-    std::string source;
+    std::stringstream source;
     GLuint shader;
+    koura::context ctx;
 
     GLSL(ShaderType initType) : Asset()
     {
@@ -40,7 +45,7 @@ class GLSL : public Asset
     {
         shader = 0;
         type = initType;
-        source = src;
+        source.str(src);
     }
 
     GLSL(std::string const &filePath) : Asset(filePath)
@@ -53,13 +58,29 @@ class GLSL : public Asset
     void loadFromFile(std::string const &filePath)
     {
         std::ifstream fd(filePath);
-        source = std::string(std::istreambuf_iterator<char>(fd),
-                             (std::istreambuf_iterator<char>()));
+        source.str(std::string(std::istreambuf_iterator<char>(fd),
+                               (std::istreambuf_iterator<char>())));
     }
 
-    void addDirective(std::string const &varName, unsigned int value);
     void compile();
     void release();
+
+    GLSL &initializeContext();
+    GLSL &setVersionDirective(size_t version);
+    GLSL &addConstant(const std::string constName, size_t value);
+    GLSL &addLayoutIdentifier(const std::string constName, const std::string type);
+    GLSL &addInputVariable(const std::string varName, const std::string type);
+    GLSL &addOutputVariable(const std::string varName, const std::string type);
+    GLSL &addUniformVariable(const std::string varName, const std::string type);
+    GLSL &generateSource();
+    GLSL &generateVersionDirective();
+    GLSL &generateLayoutIdentifiers();
+    GLSL &generateInputVariables();
+    GLSL &generateOutputVariables();
+    GLSL &generateUniformVariables();
+
+  private:
+    koura::engine engine;
 };
 
 }; // namespace Engenie
