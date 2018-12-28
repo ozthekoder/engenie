@@ -36,8 +36,8 @@ GLSL &GLSL::initializeContext()
 {
     ctx.add_entity("constants", koura::object_t{});
     ctx.add_entity("layout", koura::object_t{});
-    ctx.add_entity("in", koura::object_t{});
-    ctx.add_entity("out", koura::object_t{});
+    ctx.add_entity("ins", koura::object_t{});
+    ctx.add_entity("outs", koura::object_t{});
     ctx.add_entity("uniforms", koura::object_t{});
     return *this;
 }
@@ -71,7 +71,7 @@ GLSL &GLSL::addLayoutIdentifier(const std::string varName, const std::string typ
 
 GLSL &GLSL::addInputVariable(const std::string varName, const std::string type)
 {
-    koura::entity e = ctx.get_entity("in");
+    koura::entity e = ctx.get_entity("ins");
     koura::sequence_t vars = e.get_value<koura::sequence_t>();
     koura::object_t var;
     var["name"] = varName;
@@ -82,7 +82,7 @@ GLSL &GLSL::addInputVariable(const std::string varName, const std::string type)
 
 GLSL &GLSL::addOutputVariable(const std::string varName, const std::string type)
 {
-    koura::entity e = ctx.get_entity("out");
+    koura::entity e = ctx.get_entity("outs");
     koura::sequence_t vars = e.get_value<koura::sequence_t>();
     koura::object_t var;
     var["name"] = varName;
@@ -105,36 +105,56 @@ GLSL &GLSL::addUniformVariable(const std::string varName, const std::string type
 GLSL &GLSL::generateSource()
 {
     source.clear();
-    return generateVersionDirective();
+    return generateVersionDirective()
+        .generateLayoutIdentifiers()
+        .generateUniformVariables()
+        .generateInputVariables()
+        .generateOutputVariables();
 }
 
 GLSL &GLSL::generateVersionDirective()
 {
-    source << R"(#version {version} core\n)";
+    source << R"(#version {{version}} core\n)";
     return *this;
 }
 
 GLSL &GLSL::generateLayoutIdentifiers()
 {
-    source << R"()";
+    koura::entity e = ctx.get_entity("layout");
+    koura::sequence_t vars = e.get_value<koura::sequence_t>();
+    size_t i = 0;
+    for (koura::entity lv : vars)
+    {
+        koura::object_t var = lv.get_value<koura::object_t>();
+
+        source << R"(layout(location = )";
+        source << std::to_string(i);
+        source << R"() in )";
+        source << var["type"].get_value<koura::text_t>();
+        source << R"( )";
+        source << var["name"].get_value<koura::text_t>();
+        source << R"(;\n)";
+        i++;
+    }
+
     return *this;
 }
 
 GLSL &GLSL::generateInputVariables()
 {
-    source << R"(#version {version} core)";
+    source << R"({%for var in ins%}in {{var.type}} {{var.name}};\n {%endfor%})";
     return *this;
 }
 
 GLSL &GLSL::generateOutputVariables()
 {
-    source << R"(#version {version} core)";
+    source << R"({%for var in outs%}out {{var.type}} {{var.name}};\n {%endfor%})";
     return *this;
 }
 
 GLSL &GLSL::generateUniformVariables()
 {
-    source << R"(#version {version} core)";
+    source << R"({%for var in uniforms%}uniform {{var.type}} {{var.name}};\n {%endfor%})";
     return *this;
 }
 } // namespace Engenie
