@@ -38,4 +38,8 @@ void Shader::link()
     assert(status > 0);
 }
 
+void Shader::generateGLSL()
+{
+}
+
 } // namespace Engenie

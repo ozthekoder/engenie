@@ -11,6 +11,7 @@ void Scene::setupViewport(Json v)
         GLfloat(v["fov"]),
         v["projection"]);
 }
+
 void Scene::loadAssets(Json asts)
 {
     for (Json::iterator it = asts.begin(); it != asts.end(); ++it)

@@ -9,7 +9,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
-
 #include "glsl.hpp"
 
 using Json = nlohmann::json;
@@ -29,6 +28,7 @@ class Shader
     void attach(GLSL &shader);
     GLuint get() { return program; }
     void link();
+    void generateGLSL();
 
     void bind(GLuint location, GLuint value);
     void bind(GLuint location, GLfloat value);

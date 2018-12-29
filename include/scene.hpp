@@ -11,7 +11,6 @@
 #include "font.hpp"
 #include "lighting.h"
 #include "glsl.hpp"
-#include "shader.hpp"
 #include "text.hpp"
 #include "object.hpp"
 
